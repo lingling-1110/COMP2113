@@ -10,19 +10,19 @@ using namespace std;
 class Room {
 public:
   Room();
-  Room(int t, int lev, string n);
+  Room(int t, int diff, string n);
 
   int getType();
   string getName();
-  bool getDone();
-  void setDone(bool lev);
+  bool checkDone();
+  void setDone(bool b);
   void start(Player &p);
   void clue();
   
 private:
-  int room_type;
-  string room_name;
-  int level;
+  int type;
+  string name;
+  int diff;
   bool done;
   string key;
 };
