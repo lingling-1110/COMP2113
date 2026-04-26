@@ -11,11 +11,11 @@ class Room {
 public:
   Room();
   Room(int t, int diff, string n);
-
-  int getType();
+  
   string getName();
+  int getDiff();
   bool checkDone();
-  void setDone(bool b);
+  void setDone(bool val);
   void start(Player &p);
   void clue();
   
