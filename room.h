@@ -16,10 +16,15 @@ public:
   string getName();
   bool getDone();
   void setDone(bool lev);
-
+  void start(Player &p);
+  void clue();
+  
 private:
   int room_type;
   string room_name;
   int level;
   bool done;
+  string key;
 };
+
+#endif
