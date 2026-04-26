@@ -9,12 +9,12 @@ using namespace std;
 
 class Room {
 public:
+  Room();
+  Room(int t, int l, string n);
 
 private:
   int room_type;
   string room_name;
   int level;
-  bool finished;
-  string key;
-  
+  bool done;
 };
