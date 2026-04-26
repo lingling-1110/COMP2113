@@ -9,14 +9,21 @@ using namespace std;
 
 class Room {
 public:
+
+  // Construct empty room
   Room();
   Room(int t, int diff, string n);
-  
+
+  // Get the name of the room
   string getName();
+  // Get the difficulty
   int getDiff();
+  // Check if the room is already done
   bool checkDone();
+  // Set val to be true if the room is already done
   void setDone(bool val);
   void start(Player &p);
+  // Give some clue to the player
   void clue();
   
 private:
