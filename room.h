@@ -12,6 +12,7 @@ public:
 
   // Construct empty room
   Room();
+  // Define what will be contain in the created room
   Room(int t, int diff, string n);
 
   // Get the name of the room
