@@ -46,6 +46,7 @@ Hard: No hints, deadly traps, and complex riddles
 | game.h                      | Hayley Ip                   |  game logic, level progression, state managemen   |
 | game.cpp                    | Hayley Ip                   |                         |
 | room.h                      | Toby Chiu                   |                         |
+| room.cpp                    | Toby Chiu                   |                         |
 | (more files TBA as groupmates complete their parts)                   | Hayley Ip                   |                         |
 
 ## Team members
