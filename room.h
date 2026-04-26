@@ -23,6 +23,7 @@ public:
   bool checkDone();
   // Set val to be true if the room is already done
   void setDone(bool val);
+  // Initiate the room's event
   void start(Player &p);
   // Give some clue to the player
   void clue();
