@@ -10,11 +10,11 @@ Escape plan
 ## Game Description
 
 ## Game Features
-| Coding Requirement              | How we implement               |
+| Requirement              | How we implement               |
 |---------------------------------|--------------------------------|
 | Random events                   | Random clues, trap chance      |
 | Data structures                 | inventory, puzzles, rooms      |
-| Dynamic memory                  | dynamic rooms array            |
+| Dynamic memory                  | dynamic rooms array ?           |
 | File I/O                        | save/load game                 |
 | Program codes in multiple files  |                                |
 | Difficulty levels               | player can choose easy / medium / hard |
