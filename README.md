@@ -1,4 +1,4 @@
-Excape the Building
+Escape the Room
 COMP2113 Group Project - Semester 2, 2025-2026
 
 ## Escape the Room!  - Game Description 🎮
