@@ -31,10 +31,9 @@ void clue(Room &r, string diff) {
   cout << "[It's time for hints!]" << endl;
   if (diff == "EASY") {
     cout << "The password is: " << r.ans << endl;
-  }
-  else if (diff == "MEDIUM") {
+  } else if (diff == "MEDIUM") {
     cout << "The password starts with 9." << endl;
-  else if (diff == "HARD") {
+  } else if (diff == "HARD") {
     cout << "You can do it!" << endl;
   }
 }
@@ -46,12 +45,11 @@ void enter_rm(Room &r, int diff) {
     cout << "This room is locked! Find a key to escape!" << endl;
   } else if (r.room_num == 2) {
     cout << "There's a combination lock in front of you!" << endl;
-    clue(r, dif);
-  } else if (r.room_num == 3) {
+    clue(r, diff);
+  } else if (r.room_num == 3 && diff != HARD) {
     cout << "There are traps! Mind your health!" << endl;
-    if (dif == HARD) {
-      cout << "Oh no! More traps than expected! Be careful!" << endl;
-    }
+  } else if (r.room_num == 3 && diff == HARD) {
+    cout << "Oh no! There are so many traps! Be careful!" << endl;
   } else if (r.room_num == 4) {
     cout << "The exit is overthere! Grab the last item and let's go!" << endl;
   }
