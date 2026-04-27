@@ -6,6 +6,10 @@
 
 using namespace std;
 
+const int EASY = 0;
+const int MEDIUM = 1;
+const int HARD = 2;
+
 struct Room {
   int room_num;
   string room_name;
