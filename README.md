@@ -1,7 +1,7 @@
 Excape the Building
 COMP2113 Group Project - Semester 2, 2025-2026
 
-## Game Description
+## Game Description 🎮
 A text-based escape room game built in C++. Players are asked to solve puzzles, avoid traps, collects items and find their way to escape the building.
 ## Game Features
 - 4 Unique Room in each difficulty level: From the entrance to the final escape room, each room has its own theme and challenge.
@@ -20,7 +20,7 @@ Adjustable Difficulty: Players can choose difficulty preferences at the beginnin
 | Program codes in multiple files  |  Main, game, player, room, utils, save (separate .h / .cpp)      |
 | Difficulty levels               | Easy / Medium / Hard — different clues, trap damage, puzzle difficulty|
 
-## Non-standard libraries
+## Non-standard libraries🗂️
 Not used, standard libraries only.
 ## How to run
 Make sure you have C++ compiler , then:
@@ -31,7 +31,7 @@ g++ main.cpp game.cpp player.cpp room.cpp utils.cpp save.cpp -o escape_game
 ```bash
 ./escape_game
 ```
-## How to Play
+## How to Play 🤪
 1.Run the executable and select New Game or Load Game from the main menu.
 2.Choose your difficulty level: 
 Easy: More clues, weaker traps, simple puzzles
@@ -51,7 +51,7 @@ Hard: No hints, deadly traps, and complex riddles
 | room.cpp                    | Toby Chiu                   |                         |
 | (more files TBA as groupmates complete their parts)                   | Hayley Ip                   |                         |
 
-## Team members
+## Team members 😏
 1. Ip Hoi Ling 3036665753
 2. Chiu Wing Tung 3036216667
 3. Wang You 3036478459
