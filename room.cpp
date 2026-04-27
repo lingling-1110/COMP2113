@@ -21,7 +21,7 @@ void create_rm(Room &r, int num, string name, string diff) {
   r.room_name = name;
   r.unlocked = false;
   
-  if (num == 4) {
+  if (num == 1 || num == 4) {
     r.unlocked = false;
   } else {
     r.unlocked = true;
@@ -40,10 +40,10 @@ void create_rm(Room &r, int num, string name, string diff) {
   
   if (num == 1) {
     r.item_pos = rand() % 3 + 1;
-    r.desc = "Three mysterious cabinets surround you.";
+    r.desc = "Three mysterious cabinets surround you. A key is needed to open the door.";
   } else if (num == 2) {
     r.ans = rand() % 9000 + 1000;
-    r.desc = "A door with a 4-digit keypad."
+    r.desc = "A door with a 4-digit keypad.";
   } else if (num == 3) {
     r.trap_pos = rand() % 3 + 1;
     r.desc = "The floor tiles look suspicious.";
@@ -69,7 +69,7 @@ void discover(Room &r, int sel, bool &found_key){
   
   if (r.id == 1) {
     if (sel == r.item_pos) {
-      cout << "You found the " << r.key << "!" << endl;
+      cout << "You found the key!" << endl;
       r.unlocked = true;
       found_key = true;
     } else {
