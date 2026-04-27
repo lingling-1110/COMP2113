@@ -16,7 +16,6 @@ void save(const Room &r, const string &fname) {
     fout << r.room_name << endl;
     fout << r.desc << endl;
     fout << r.locked << endl;
-    fout << r.key << endl;
     fout << r.ans << endl;
     fout << r.trap << endl;
 
@@ -34,7 +33,6 @@ bool load(Room &r, const string &fname) {
     getline(fin, r.room_name);
     getline(fin, r.desc);
     fin >> r.unlocked;
-    fin >> r.key;
     fin >> r.ans;
     fin >> r.trap;
 
