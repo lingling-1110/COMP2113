@@ -7,7 +7,7 @@
 using namespace std;
 
 void def(Room &r) {
-  r.room_num = 1;
+  r.id = 1;
   r.room_name = "";
   r.desc = "";
   r.unlocked = true;
@@ -17,7 +17,7 @@ void def(Room &r) {
 }
 
 void create_rm(Room &r, int num, string name, string diff) {
-  r.room_num = num;
+  r.id = num;
   r.room_name = name;
   r.unlocked = false;
   
@@ -67,7 +67,7 @@ void create_rm(Room &r, int num, string name, string diff) {
 void discover(Room &r, int sel, bool &found_key){
   found_key = false;
   
-  if (r.room_num == 1) {
+  if (r.id == 1) {
     if (sel == r.item_pos) {
       cout << "You found the " << r.key << "!" << endl;
       r.unlocked = true;
@@ -94,18 +94,18 @@ void clue(Room &r, string diff) {
 void enter_rm(Room &r, string diff, int found_num) {
   cout << "You are entering " << r.room_name << "." << endl;
 
-  if (r.room_num == 1) {
+  if (r.id == 1) {
     cout << "This room is locked! Find a key to escape!" << endl;
-  } else if (r.room_num == 2) {
+  } else if (r.id == 2) {
     cout << "There's a combination lock in front of you! Try to solve it!" << endl;
     clue(r, diff);
-  } else if (r.room_num == 3 && diff == "EASY") {
+  } else if (r.id == 3 && diff == "EASY") {
     cout << "There are traps! Be careful!" << endl;
-  } else if (r.room_num == 3 && diff == "MEDIUM") {
+  } else if (r.id == 3 && diff == "MEDIUM") {
     cout << "There are some traps! Watch your steps!" << endl;
-  } else if (r.room_num == 3 && diff == "HARD") {
+  } else if (r.id == 3 && diff == "HARD") {
     cout << "Danger! Traps everywhere! Mind your health!" << endl;
-  } else if (r.room_num == 4) {
+  } else if (r.id == 4) {
     if (r.item_num > 1) {
       cout << "The exit is overthere! Grab " << r.item_num << " items and let's go!" << endl;
     } else {
