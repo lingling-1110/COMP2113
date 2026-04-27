@@ -11,5 +11,5 @@ void def(Room &r) {
   r.locked = false;
   r.key = "";
   r.ans = INT_MAX;
-  r.dan = 0;
+  r.trap = 0;
 }
