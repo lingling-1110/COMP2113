@@ -20,6 +20,8 @@ Adjustable Difficulty: Players can choose difficulty preferences at the beginnin
 | Program codes in multiple files  |  Main, game, player, room, utils, save (separate .h / .cpp)      |
 | Difficulty levels               | Easy / Medium / Hard — different clues, trap damage, puzzle difficulty|
 
+## Non-standard libraries
+Not used, standard libraries only.
 ## How to run
 Make sure you have C++ compiler , then:
 Compile
