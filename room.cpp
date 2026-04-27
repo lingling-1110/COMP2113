@@ -19,6 +19,7 @@ void def(Room &r) {
 void create_rm(Room &r, int num, string name, string diff) {
   r.room_num = num;
   r.room_name = name;
+  r.unlocked = false;
   
   if (num == 4) {
     r.unlocked = false;
@@ -40,10 +41,13 @@ void create_rm(Room &r, int num, string name, string diff) {
   
   if (num == 1) {
     r.item_pos = rand() % 3 + 1;
+    r.desc = "Three mysterious cabinets surround you.";
   } else if (num == 2) {
     r.ans = rand() % 9000 + 1000;
+    r.desc = "A door with a 4-digit keypad."
   } else if (num == 3) {
     r.trap_pos = rand() % 3 + 1;
+    r.desc = "The floor tiles look suspicious.";
   } else if (num == 4) {
     if (diff == "EASY") {
       r.item_num = 1;
@@ -57,6 +61,7 @@ void create_rm(Room &r, int num, string name, string diff) {
     int y = rand() % 10 + 1;
     r.result = x * y;
     r.ans = r.result;
+    r.desc = "The final exit. Solve this to escape: " + to_string(x) + " x " + to_stirng(y);
   }
 }
 
