@@ -1,33 +1,31 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-#include <iostream>
 #include <string>
 #include <vector>
 
 using namespace std;
 
 class Player {
-private:
-    int currentLevel;
-    vector<string> inventory;
-    int health;
-    Difficulty difficulty;
-
 public:
     Player();
-    void setLevel(int level);
-    int getLevel() const;
-    void addItem(const string& item);
-    bool hasItem(const string& item) const;
-    void removeItem(const string& item);
-    void showInventory() const;
-    bool hasKey() const;
-    int getHealth() const;
-    void setHealth(int h);
-    void reduceHealth(int amount);
-    void setDifficulty(Difficulty diff);
-    Difficulty getDifficulty() const;
+    void addItem(string item);
+    bool hasItem(string item);
+    void removeItem(string item);
+    void showInv();
+    bool hasKey();
+    int getHp();
+    void takeDamage(int dmg);
+    void setDiff(int d);  // 0=easy,1=med,2=hard
+    int getDiff();
+    int getLevel();
+    void nextLevel();
+
+private:
+    vector<string> inv;
+    int hp;
+    int diff;
+    int level;
 };
 
 #endif
