@@ -50,6 +50,6 @@ Hard: No hints, deadly traps, and complex riddles
 | (more files TBA as groupmates complete their parts)                   | Hayley Ip                   |                         |
 
 ## Team members
-1. Hayley (lingling-1110)
-2. Toby   (ty-tung)
-3. Yura   (yoyotawki-crypto)
+1. Ip Hoi Ling 3036665753
+2. Chiu Wing Tung 3036216667
+3. Wang You 3036478459
