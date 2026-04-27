@@ -10,7 +10,6 @@ struct Room {
   bool unlocked;
   string room_name;
   string desc;
-  string key;
   int ans;
   int result;
   int item_pos;
