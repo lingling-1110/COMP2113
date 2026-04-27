@@ -30,6 +30,15 @@ public:
   Game();
   ~Game(); //free dynamic memory
 
-  void start()
+  void start();
+  void roomssetup();
+
+  void displayStatus();
+  void processInput();
+
+  void nextRoom();
+
+  bool isOver();
+};
 
 #endif
