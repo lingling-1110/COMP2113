@@ -7,7 +7,7 @@
 using namespace std;
 
 void save(const Room &r, const string &fname);
-bool load(Room &r, const string fname);
-void del(const string fname);
+bool load(Room &r, const string &fname);
+void del(const string &fname);
 
 #endif
