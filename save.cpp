@@ -12,7 +12,7 @@ void save(const Room &r, const string &fname) {
   if (fout.fail()) {
     cout << "The file could not be opened for saving >_<" << endl;
   } else {
-    fout << r.room_num << endl;
+    fout << r.id << endl;
     fout << r.room_name << endl;
     fout << r.desc << endl;
     fout << r.locked << endl;
@@ -29,7 +29,7 @@ bool load(Room &r, const string &fname) {
   fin.open(fname);
 
   if (!fin.fail()) {
-    fin >> r.room_num;
+    fin >> r.id;
     fin.ignore();
     getline(fin, r.room_name);
     getline(fin, r.desc);
