@@ -17,16 +17,12 @@ struct Room {
   bool locked;
   string key;
   int ans;
-  int key_pos;
   int trap;
-  int hp;
 };
 
-void Room1(Room &r, int diff);
-void Room2(Room &r, int diff);
-void Room3(Room &r, int diff);
-void Room4(Room &r, int diff);
-
-void roomInfo(Room &r);
+void def(Room &r);
+void create_rm(Room &r, int num, string name, int diff);
+void clue(Room &r, int diff);
+void enter_rm(Room &r, int diff);
 
 #endif
