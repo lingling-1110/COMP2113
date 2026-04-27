@@ -28,12 +28,12 @@ bool load(Room &r, const string &fname) {
   ifstream fin;
   fin.open(fname);
 
-  if (fin.fail()) {
+  if (!fin.fail()) {
     fin >> r.room_num;
     fin.ignore();
     getline(fin, r.room_name);
     getline(fin, r.desc);
-    fin >> r.locked;
+    fin >> r.unlocked;
     fin >> r.key;
     fin >> r.ans;
     fin >> r.trap;
