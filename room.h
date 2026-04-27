@@ -25,7 +25,7 @@ public:
   void setDone(bool val);
   // Initiate the room's event
   void start(Player &p);
-  // Give some clue to the player
+  // Provide some clue to the player
   void clue();
   
 private:
