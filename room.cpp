@@ -1,5 +1,7 @@
 #include <iostream>
 #include <string>
+#include <cstdlib>
+#include <ctime>
 #include "room.h"
 
 using namespace std;
@@ -31,19 +33,20 @@ void create_rm(Room &r, int num, string name, string diff) {
   r.trap = multi * 10;
   
   if (num == 2) {
-    r.ans = 9999;
+    r.ans = rand() % 9000 + 1000;
   } else {
     r.ans = 0;
   }
 }
 
 void clue(Room &r, string diff) {
-  if (diff == "EASY") {
+  if (diff == "EASY" || diff == "MEDIUM") {
     cout << "[It's time for hints!]" << endl;
+  }
+  if (diff == "EASY") {
     cout << "The password is: " << r.ans << endl;
   } else if (diff == "MEDIUM") {
-    cout << "[It's time for hints!]" << endl;
-    cout << "The password starts with 9." << endl;
+    cout << "The password starts with " << r.ans / 1000 << "." << endl;
   } else if (diff == "HARD") {
     cout << "Almost there! You can do it!" << endl;
   }
