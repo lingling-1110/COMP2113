@@ -7,13 +7,13 @@
 using namespace std;
 
 void def(Room &r) {
-  r.id = 1;
+  r.id = 0;
   r.room_name = "";
   r.desc = "";
   r.unlocked = true;
-  r.key = "";
   r.ans = 0;
   r.trap = 0;
+  r.item_num = 0;
 }
 
 void create_rm(Room &r, int num, string name, string diff) {
@@ -29,11 +29,11 @@ void create_rm(Room &r, int num, string name, string diff) {
   
   int multi = 0;
   if (diff == "EASY") {
-    multi = 0;
-  } else if (diff == "MEDIUM") {
     multi = 1;
-  } else if (diff == "HARD") {
+  } else if (diff == "MEDIUM") {
     multi = 2;
+  } else if (diff == "HARD") {
+    multi = 3;
   }
 
   r.trap = multi * 10;
@@ -64,6 +64,16 @@ void create_rm(Room &r, int num, string name, string diff) {
   }
 }
 
+bool inTrap(Room &r, int sel) {
+  if (r.id == 3 && sel == r.trap_pos) {
+    cout << "OH NO! YOU TRIGGERED A TRAP!" << endl;
+    cout << "You lost " << r.trap << " HP!" << endl;
+    return true;
+  }
+
+  return false;
+}
+
 void discover(Room &r, int sel, bool &found_key){
   found_key = false;
   
@@ -75,12 +85,15 @@ void discover(Room &r, int sel, bool &found_key){
     } else {
       cout << "Arghhh! So many dust! But nothing useful..." << endl;
     }
-  }
+  } else if (r.id == 4) {
+    found_key = true;
+    string items[3] = {"An emergency flare", "A security bypass keycard", "A rusty crowbar"};
+    cout << items[rand() % 3] << " is found among the trash!" << endl;
 }
 
 void clue(Room &r, string diff) {
   if (diff == "EASY" || diff == "MEDIUM") {
-    cout << "[It's time for hints!]" << endl;
+    cout << "[It's time to get some hints!]" << endl;
   }
   if (diff == "EASY") {
     cout << "The password is: " << r.ans << endl;
@@ -93,6 +106,7 @@ void clue(Room &r, string diff) {
 
 void enter_rm(Room &r, string diff, int found_num) {
   cout << "You are entering " << r.room_name << "." << endl;
+  cout << r.desc << endl;
 
   if (r.id == 1) {
     cout << "This room is locked! Find a key to escape!" << endl;
@@ -115,9 +129,9 @@ void enter_rm(Room &r, string diff, int found_num) {
     int remain = r.item_num - found_num;
 
     if (remain > 0) {
-      cout << "Almost done! " << remain << " more to go!" << endl;
+      cout << "Almost done! " << remain << " more items to go!" << endl;
     } else {
-      cout << "You have everything you need!" << endl;
+      cout << "You have everything you need! The door is opened!" << endl;
       r.unlocked = true;
     }
   }
