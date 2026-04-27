@@ -37,7 +37,6 @@ void create_rm(Room &r, int num, string name, string diff) {
   }
 
   r.trap = multi * 10;
-  srand(time(0));
   
   if (num == 1) {
     r.item_pos = rand() % 3 + 1;
@@ -61,7 +60,7 @@ void create_rm(Room &r, int num, string name, string diff) {
     int y = rand() % 10 + 1;
     r.result = x * y;
     r.ans = r.result;
-    r.desc = "The final exit. Solve this to escape: " + to_string(x) + " x " + to_stirng(y);
+    r.desc = "The final exit. Solve this to escape: " + to_string(x) + " x " + to_string(y);
   }
 }
 
@@ -108,9 +107,9 @@ void enter_rm(Room &r, string diff, int found_num) {
     cout << "Danger! Traps everywhere! Mind your health!" << endl;
   } else if (r.room_num == 4) {
     if (r.item_num > 1) {
-      cout << "The exit is overthere! Grab " << r.item_num << "items and let's go!" << endl;
+      cout << "The exit is overthere! Grab " << r.item_num << " items and let's go!" << endl;
     } else {
-      cout << "The exit is overthere! Grab " << r.item_num << "item and let's go!" << endl;
+      cout << "The exit is overthere! Grab " << r.item_num << " item and let's go!" << endl;
     }
 
     int remain = r.item_num - found_num;
