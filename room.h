@@ -8,7 +8,6 @@ using namespace std;
 struct Room {
   int id;
   bool unlocked;
-  int room_num;
   string room_name;
   string desc;
   string key;
