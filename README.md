@@ -1,8 +1,8 @@
 Excape the Building
 COMP2113 Group Project - Semester 2, 2025-2026
 
-## Game Description 🎮
-A text-based escape room game built in C++. Players are asked to solve puzzles, avoid traps, collects items and find their way to escape the building.
+## Escape the Room!  - Game Description 🎮
+A text-based game built in C++. Players are asked to solve puzzles, avoid traps, collects items and find their way to escape the building.
 ## Game Features
 - 4 Unique Room in each difficulty level: From the entrance to the final escape room, each room has its own theme and challenge.
 - Inventory System: Collect keys, clues, and puzzle pieces to unlock new areas.
