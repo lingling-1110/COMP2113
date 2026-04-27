@@ -36,7 +36,8 @@ void create_rm(Room &r, int num, string name, string diff) {
   }
 
   r.trap = multi * 10;
-
+  srand(time(0));
+  
   if (num == 1) {
     r.item_pos = rand() % 3 + 1;
   } else if (num == 2) {
@@ -63,6 +64,7 @@ void discover(Room &r, int sel){
   if (r.room_num == 1) {
     if (sel == r.item_pos) {
       cout << "You found the " << r.key << "!" << endl;
+      r.locked = false;
     } else {
       cout << "Arghhh! So many dust! But nothing useful..." << endl;
     }
