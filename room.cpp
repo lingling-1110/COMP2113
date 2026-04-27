@@ -10,7 +10,7 @@ void def(Room &r) {
   r.room_num = 1;
   r.room_name = "";
   r.desc = "";
-  r.locked = false;
+  r.unlocked = true;
   r.key = "";
   r.ans = 0;
   r.trap = 0;
@@ -21,9 +21,9 @@ void create_rm(Room &r, int num, string name, string diff) {
   r.room_name = name;
   
   if (num == 4) {
-    r.locked = true;
+    r.unlocked = false;
   } else {
-    r.locked = false;
+    r.unlocked = true;
   }
   
   int multi = 0;
@@ -60,11 +60,14 @@ void create_rm(Room &r, int num, string name, string diff) {
   }
 }
 
-void discover(Room &r, int sel){
+void discover(Room &r, int sel, bool &found_key){
+  found_key = false;
+  
   if (r.room_num == 1) {
     if (sel == r.item_pos) {
       cout << "You found the " << r.key << "!" << endl;
-      r.locked = false;
+      r.unlocked = true;
+      found_key = true;
     } else {
       cout << "Arghhh! So many dust! But nothing useful..." << endl;
     }
@@ -111,6 +114,7 @@ void enter_rm(Room &r, string diff, int found_num) {
       cout << "Almost done! " << remain << " more to go!" << endl;
     } else {
       cout << "You have everything you need!" << endl;
+      r.unlocked = true;
     }
   }
 }
