@@ -17,7 +17,11 @@ void save(const Room &r, const string &fname) {
     fout << r.desc << endl;
     fout << r.unlocked << endl;
     fout << r.ans << endl;
+    fout << r.result << endl;
+    fout << r.item_pos << endl;
+    fout << r.item_num << endl;
     fout << r.trap << endl;
+    fout << r.trap_pos << endl;
 
     fout.close();
   }
@@ -30,11 +34,17 @@ bool load(Room &r, const string &fname) {
   if (!fin.fail()) {
     fin >> r.id;
     fin.ignore();
+    
     getline(fin, r.room_name);
     getline(fin, r.desc);
+    
     fin >> r.unlocked;
     fin >> r.ans;
+    fin >> r.result;
+    fin >> r.item_pos;
+    fin >> r.item_num;
     fin >> r.trap;
+    fin >> r.trap_pos;
     fin.ignore();
 
     fin.close();
