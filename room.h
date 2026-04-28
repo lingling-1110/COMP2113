@@ -24,5 +24,6 @@ bool inTrap(Room &r, int sel);
 void discover(Room &r, int sel, bool &found_key);
 void clue(Room &r, string diff);
 void enter_rm(Room &r, string diff, int found_num);
+void visual_map(const Room &r, int px, int py);
 
 #endif
