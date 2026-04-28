@@ -17,12 +17,20 @@ void def(Room &r) {
   r.trap = 0;
   r.trap_pos = 0;
   r.item_num = 0;
+  r.trapX = 0;
+  r.trapY = 0;
+}
+
+bool able(Room &r, int x, int y) {
+  if (r.layout[y][x] == '#') {
+    return false;
+  } 
+  return true;
 }
 
 void create_rm(Room &r, int num, string name, string diff) {
   r.id = num;
   r.room_name = name;
-  r.unlocked = false;
   
   if (num == 1 || num == 4) {
     r.unlocked = false;
@@ -48,8 +56,9 @@ void create_rm(Room &r, int num, string name, string diff) {
     r.ans = rand() % 9000 + 1000;
     r.desc = "A door with a 4-digit keypad.";
   } else if (num == 3) {
-    r.trap_pos = rand() % 3 + 1;
-    r.desc = "The floor tiles look suspicious.";
+    r.trapX = 5;
+    r.trapY = 2;
+    r.desc = "The floor tiles look suspicious...";
   } else if (num == 4) {
     if (diff == "EASY") {
       r.item_num = 1;
@@ -68,7 +77,7 @@ void create_rm(Room &r, int num, string name, string diff) {
 
   r.w = 12;
   r.h = 6;
-
+  
   for (int i = 0; i < r.h; i++) {
     for (int j = 0; j < r.w; j++) {
       if (i == 0 || i == r.h - 1 || j == 0 || j == r.w - 1) {
@@ -84,8 +93,13 @@ void create_rm(Room &r, int num, string name, string diff) {
 }
 
 void visual_map(Room &r, int pX, int pY) {
-  system("clear");
 
+  if (system("clear") != 0) {
+    system("cls");
+  }
+
+  cout << " --- " << r.room_name << " --- " << endl;
+  
   for (int i = 0; i < r.h; i++) {
     for (int j = 0; j < r.w; j++) {
       if (i == pY && j == pX) {
@@ -94,13 +108,14 @@ void visual_map(Room &r, int pX, int pY) {
         cout << r.layout[i][j];
       }
     }
-
     cout << endl;
   }
+  cout << endl;
+  cout << r.desc << endl;
 }
 
-bool inTrap(Room &r, int sel) {
-  if (r.id == 3 && sel == r.trap_pos) {
+bool inTrap(Room &r, int pX, int pY) {
+  if (r.id == 3 && pX == r.trapX && pY == r.trapY) {
     cout << "OH NO! YOU TRIGGERED A TRAP!" << endl;
     cout << "You lost " << r.trap << " HP!" << endl;
     return true;
@@ -109,7 +124,7 @@ bool inTrap(Room &r, int sel) {
   return false;
 }
 
-void discover(Room &r, int sel, bool &found_key){
+void discover(Room &r, int sel, bool &found_key) {
   found_key = false;
   
   if (r.id == 1) {
@@ -142,7 +157,6 @@ void clue(Room &r, string diff) {
 
 void enter_rm(Room &r, string diff, int found_num) {
   cout << "You are entering " << r.room_name << "." << endl;
-  cout << r.desc << endl;
 
   if (r.id == 1) {
     cout << "This room is locked! Find a key to escape!" << endl;
@@ -156,18 +170,11 @@ void enter_rm(Room &r, string diff, int found_num) {
   } else if (r.id == 3 && diff == "HARD") {
     cout << "Danger! Traps everywhere! Mind your health!" << endl;
   } else if (r.id == 4) {
-    if (r.item_num > 1) {
-      cout << "The exit is overthere! Grab " << r.item_num << " items and let's go!" << endl;
-    } else {
-      cout << "The exit is overthere! Grab " << r.item_num << " item and let's go!" << endl;
-    }
-
     int remain = r.item_num - found_num;
-
     if (remain > 0) {
-      cout << "Almost done! " << remain << " more items to go!" << endl;
+      cout << "The exit is overthere! Find " << r.item_num << " more items!" << endl;
     } else {
-      cout << "You have everything you need! The door is opened!" << endl;
+      cout << "You have everything! The door is opened!" << endl;
       r.unlocked = true;
     }
   }
