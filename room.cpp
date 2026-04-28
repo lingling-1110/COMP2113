@@ -12,7 +12,10 @@ void def(Room &r) {
   r.desc = "";
   r.unlocked = true;
   r.ans = 0;
+  r.result = 0;
+  r.item_pos = 0;
   r.trap = 0;
+  r.trap_pos = 0;
   r.item_num = 0;
 }
 
