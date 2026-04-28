@@ -15,7 +15,7 @@ void save(const Room &r, const string &fname) {
     fout << r.id << endl;
     fout << r.room_name << endl;
     fout << r.desc << endl;
-    fout << r.locked << endl;
+    fout << r.unlocked << endl;
     fout << r.ans << endl;
     fout << r.trap << endl;
 
