@@ -35,6 +35,7 @@ bool load(Room &r, const string &fname) {
     fin >> r.unlocked;
     fin >> r.ans;
     fin >> r.trap;
+    fin.ignore();
 
     fin.close();
     return true;
