@@ -10,7 +10,8 @@ string clue();
 string riddle();
 string riddleAns(string q);
 string mathQ();
-int mathA(string q);
-void pause();
+int mathA(string q);      // ADD THIS
+void pause();              // ADD THIS
+void seed();               // ADD THIS (if used elsewhere)
 
 #endif
