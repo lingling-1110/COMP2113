@@ -89,6 +89,7 @@ void discover(Room &r, int sel, bool &found_key){
     found_key = true;
     string items[3] = {"An emergency flare", "A security bypass keycard", "A rusty crowbar"};
     cout << items[rand() % 3] << " is found among the trash!" << endl;
+  }
 }
 
 void clue(Room &r, string diff) {
