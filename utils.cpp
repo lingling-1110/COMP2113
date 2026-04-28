@@ -7,11 +7,22 @@ using namespace std;
 
 static bool seeded = false;
 
-void seed() { if (!seeded) { srand(time(0)); seeded = true; } }
+void seed() { 
+    if (!seeded) { 
+        srand(time(0)); 
+        seeded = true; 
+    } 
+}
 
-int randNum(int min, int max) { seed(); return min + rand() % (max - min + 1); }
+int randNum(int min, int max) { 
+    seed(); 
+    return min + rand() % (max - min + 1); 
+}
 
-bool chance(int percent) { seed(); return (rand() % 100) < percent; }
+bool chance(int percent) { 
+    seed(); 
+    return (rand() % 100) < percent; 
+}
 
 string clue() {
     string c[] = {"Under desk", "Behind painting", "Under tile", "In bookshelf"};
@@ -24,7 +35,8 @@ string riddle() {
 }
 
 string riddleAns(string q) {
-    if (q.find("keys") != string::npos) return "piano";
+    if (q.find("keys") != string::npos) 
+        return "piano";
     return "towel";
 }
 
@@ -34,7 +46,7 @@ string mathQ() {
     return ss.str();
 }
 
-int mathA(string q) {
+int mathA(string q) {    // ADD THIS FUNCTION
     int a, b;
     char op;
     stringstream ss(q);
@@ -42,7 +54,7 @@ int mathA(string q) {
     return a + b;
 }
 
-void pause() {
+void pause() {           // ADD THIS FUNCTION
     cout << "Press Enter...";
     cin.ignore();
     cin.get();
