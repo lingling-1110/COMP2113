@@ -65,6 +65,38 @@ void create_rm(Room &r, int num, string name, string diff) {
     r.ans = r.result;
     r.desc = "The final exit. Solve this to escape: " + to_string(x) + " x " + to_string(y);
   }
+
+  r.w = 12;
+  r.h = 6;
+
+  for (int i = 0; i < r.h; i++) {
+    for (int j = 0; j < r.w; j++) {
+      if (i == 0 || i == r.h - 1 || j == 0 || j == r.w - 1) {
+        r.layout[i][j] = '#';
+      } else {
+        r.layout[i][j] = '.';
+      }
+    }
+  }
+
+  r.layout[3][10] = 'E';
+  
+}
+
+void visual_map(Room &r, int pX, int pY) {
+  system("clear");
+
+  for (int i = 0; i < r.h; i++) {
+    for (int j = 0; j < r.w; j++) {
+      if (i == pY && j == pX) {
+        cout << "P";
+      } else {
+        cout << r.layout[i][j];
+      }
+    }
+
+    cout << endl;
+  }
 }
 
 bool inTrap(Room &r, int sel) {
