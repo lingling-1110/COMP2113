@@ -172,7 +172,7 @@ void enter_rm(Room &r, string diff, int found_num) {
   } else if (r.id == 4) {
     int remain = r.item_num - found_num;
     if (remain > 0) {
-      cout << "The exit is overthere! Find " << r.item_num << " more items!" << endl;
+      cout << "The exit is overthere! Find " << remain << " more items!" << endl;
     } else {
       cout << "You have everything! The door is opened!" << endl;
       r.unlocked = true;
