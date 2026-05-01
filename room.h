@@ -31,5 +31,6 @@ bool inTrap(Room &r, int pX, int pY);
 void discover(Room &r, int sel, bool &found_key);
 void clue(Room &r, string diff);
 void enter_rm(Room &r, string diff, int found_num);
+void free_rm(Room &r);
 
 #endif
