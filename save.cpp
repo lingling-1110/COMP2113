@@ -6,7 +6,7 @@
 
 using namespace std;
 
-void save(const Room &r, const string &fname) {
+void save(const Player &p, const Room &r, const string &fname) {
   ofstream fout;
   fout.open(fname);
   
@@ -35,7 +35,7 @@ void save(const Room &r, const string &fname) {
   }
 }
 
-bool load(Room &r, const string &fname) {
+bool load(Player &p, Room &r, const string &fname) {
   ifstream fin;
   fin.open(fname);
 
@@ -64,12 +64,21 @@ bool load(Room &r, const string &fname) {
   fin >> r.h;
 
   fin.close();
-  return true;
 
+  free_rm(r);
   r.layout = new char*[r.h];
   for (int i = 0; i < r.h; i++) {
     r.layout[i] = new char[r.w];
+    for (int j = 0; j < r.w; j++) {
+      if (i == 0 || i == r.h - 1 || j == 0 || j == r.w - 1) {
+        r.layout[i][j] = '#';
+      } else {
+        r.layout[i][j] = '.';
+      }
+    }
   }
+  r.layout[3][10] = 'E';
+  return true;
 }
 
 void del(const string &fname) {
