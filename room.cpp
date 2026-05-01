@@ -77,6 +77,11 @@ void create_rm(Room &r, int num, string name, string diff) {
 
   r.w = 12;
   r.h = 6;
+
+  r.layout = new char*[r.h];
+  for (int i = 0; i < r.h; i++) {
+    r.layout[i] = new char[r.w];
+  }
   
   for (int i = 0; i < r.h; i++) {
     for (int j = 0; j < r.w; j++) {
@@ -110,8 +115,6 @@ void visual_map(Room &r, int pX, int pY) {
     }
     cout << endl;
   }
-  cout << endl;
-  cout << r.desc << endl;
 }
 
 bool inTrap(Room &r, int pX, int pY) {
@@ -177,5 +180,15 @@ void enter_rm(Room &r, string diff, int found_num) {
       cout << "You have everything! The door is opened!" << endl;
       r.unlocked = true;
     }
+  }
+}
+
+void free_rm(Room &r) {
+  if (r.layout != nullptr) {
+    for (int i = 0; i < r.h; i++) {
+      delete[] r.layout[i];
+    }
+    delete[] r.layout;
+    r.layout = nullptr;
   }
 }
