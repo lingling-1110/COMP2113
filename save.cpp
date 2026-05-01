@@ -16,7 +16,15 @@ void save(const Player &p, const Room &r, const string &fname) {
   } else {
     fout << p.getHp() << endl;
     fout << p.getLevel() << endl;
-    fout << p.getDiff() << endl;
+
+    if (p.getDiff() == "EASY") {
+      diffNum = 1;
+    } else if (p.getDiff() == "MEDIUM") {
+      diffNum = 2;
+    } else if (p.getDiff() == "HARD") {
+      diffNum = 3;
+    }
+    fout << diffNum << endl;
     
     fout << r.id << endl;
     fout << r.unlocked << endl;
@@ -50,7 +58,14 @@ bool load(Player &p, Room &r, const string &fname) {
 
   p.setHp(currHp);
   p.setLevel(currLev);
-  p.setDiff(currDiff);
+
+  if (currDiff == 2) {
+    p.setDiff("MEDIUM");
+  } else if (currDiff == 3) {
+    p.setDiff("HARD");
+  } else {
+    p.setDiff("EASY");
+  }
   
   fin >> r.id;
   fin >> r.unlocked;
