@@ -77,12 +77,18 @@ bool load(Player &p, Room &r, const string &fname) {
       }
     }
   }
-  r.layout[3][10] = 'E';
+
+  if (r.h > 3 && r.w > 10) {
+    r.layout[3][10] = 'E';
+  }
+  
   return true;
 }
 
 void del(const string &fname) {
-  ofstream ofs(fname);
-  ofs.close();
-  cout << "Save file cleared." << endl;
+  if (remove(fname.c_str()) == 0) {
+    cout << "Save file deleted." << endl;
+  } else {
+    cout << "No save file found to delete." << endl;
+  }
 }
