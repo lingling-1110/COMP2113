@@ -29,6 +29,7 @@ bool able(Room &r, int x, int y) {
 }
 
 void create_rm(Room &r, int num, string name, string diff) {
+  free_rm(r);
   r.id = num;
   r.room_name = name;
   
