@@ -2,6 +2,7 @@
 #include <iostream>
 
 #include "save.h"
+#include "player.h"
 
 using namespace std;
 
@@ -12,9 +13,9 @@ void save(const Room &r, const string &fname) {
   if (fout.fail()) {
     cout << "The file could not be opened for saving >_<" << endl;
   } else {
-    fout << p.gethp() << endl;
-    fout << p.getlevel() << endl;
-    fout << p.getdiff() << endl;
+    fout << p.getHp() << endl;
+    fout << p.getLevel() << endl;
+    fout << p.getDiff() << endl;
     
     fout << r.id << endl;
     fout << r.unlocked << endl;
@@ -45,6 +46,10 @@ bool load(Room &r, const string &fname) {
   int currHp, currLev, currDiff;
 
   fin >> currHp >> currLev >> currDiff;
+
+  p.setHp(currHp);
+  p.setLevel(currLev);
+  p.setDiff(currDiff);
   
   fin >> r.id;
   fin >> r.unlocked;
@@ -60,6 +65,11 @@ bool load(Room &r, const string &fname) {
 
   fin.close();
   return true;
+
+  r.layout = new char*[r.h];
+  for (int i = 0; i < r.h; i++) {
+    r.layout[i] = new char[r.w];
+  }
 }
 
 void del(const string &fname) {
