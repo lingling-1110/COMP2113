@@ -23,6 +23,9 @@ void def(Room &r) {
 }
 
 bool able(Room &r, int x, int y) {
+  if (x < 0 || x >= r.w || y < 0 || y >=r.h) {
+    return false;
+  }
   if (r.layout[y][x] == '#') {
     return false;
   } 
