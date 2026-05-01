@@ -23,7 +23,6 @@ Adjustable Difficulty: Players can choose difficulty preferences at the beginnin
 ## Non-standard libraries🗂️
 Not used, standard libraries only.
 ## How to run
-Make sure you have C++ compiler , then:
 Compile
 ```bash
 g++ main.cpp game.cpp player.cpp room.cpp utils.cpp save.cpp -o escape_game
