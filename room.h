@@ -20,7 +20,7 @@ struct Room {
   int trapY;
   int w;
   int h;
-  char layout[6][12];
+  char** layout;
 };
 
 void def(Room &r);
