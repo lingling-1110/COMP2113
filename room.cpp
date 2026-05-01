@@ -8,6 +8,7 @@ using namespace std;
 
 void def(Room &r) {
   r.id = 0;
+  r.layout = nullptr;
   r.room_name = "";
   r.desc = "";
   r.unlocked = true;
