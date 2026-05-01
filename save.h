@@ -4,6 +4,8 @@
 #include <string>
 #include "room.h"
 
+class Player;
+
 using namespace std;
 
 void save(const Player &p, const Room &r, const string &fname);
