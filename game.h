@@ -1,44 +1,12 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include <string>
-using namespace std;
+#include "player.h"
+#include "room.h"
 
-// difficulty setting
-enum Difficulty { EASY, MEDIUM, HARD };
+bool runLevel(Player& player);
+void startGame();
 
-// player struct
-struct Player  { 
-  int hp;
-  int roomnum;
-};
-// room struct
-struct Room {
-  int num;
-  bool islocked;
-};
-
-class Game {
-private:
-  Player player;
-  Room* rooms;
-  int totalRooms;
-  Difficulty difficulty;
-  bool isRunning;
-
-public:
-  Game();
-  ~Game(); //free dynamic memory
-
-  void start();
-  void roomssetup();
-
-  void displayStatus();
-  void processInput();
-
-  void nextRoom();
-
-  bool isOver();
-};
+#endif
 
 #endif
