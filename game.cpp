@@ -61,8 +61,8 @@ bool runLevel(Player& player) {
         }
       
     
-        // LEVEL 2: M = Math Question 
-        if (player.currentLevel == LEVEL2 && !mathSolved) {
+        // LEVEL 2 and final level of   Math Question 
+        if (player.currentLevel == LEVEL2 || player.currentLevel == FINAL_LEVEL) && !mathSolved) {
             // Check if player steps on M position
             if (room.map[player.y][player.x] == 'M') {
                 cout << "\n 🧮 MATH PUZZLE (M)" << endl;
