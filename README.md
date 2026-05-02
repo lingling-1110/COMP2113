@@ -58,7 +58,7 @@ Need both collect Key + solve Math puzzle to escape.
 | main.cpp                    | Hayley Ip                   |                         |
 | game.h                      | Hayley Ip                   |  game logic, level progression, state managemen   |
 | game.cpp                    | Hayley Ip                   |                         |
-| room.h                      | Chiu Wing Tung              |                         |
+| room.h                      | Chiu Wing Tung              |  room structure, puzzles, dynamic trap placement                       |
 | room.cpp                    | Chiu Wing Tung              |                         |
 | save.h                      | Chiu Wing Tung              |                         |
 | save.cpp                    | Chiu Wing Tung              |                         |
