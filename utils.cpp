@@ -2,60 +2,93 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
-#include <sstream>
 using namespace std;
 
-static bool seeded = false;
 
-void seed() { 
-    if (!seeded) { 
-        srand(time(0)); 
-        seeded = true; 
-    } 
-}
+bool randSeeded = false;
 
-int randNum(int min, int max) { 
-    seed(); 
-    return min + rand() % (max - min + 1); 
-}
-
-bool chance(int percent) { 
-    seed(); 
-    return (rand() % 100) < percent; 
-}
-
-string clue() {
-    string c[] = {"Under desk", "Behind painting", "Under tile", "In bookshelf"};
-    return c[randNum(0, 3)];
-}
-
-string riddle() {
-    string r[] = {"What has keys but no locks?", "What gets wetter as it dries?"};
-    return r[randNum(0, 1)];
-}
-
-string riddleAns(string q) {
-    if (q.find("keys") != string::npos) 
-        return "piano";
-    return "towel";
-}
-
-string mathQ() {
-    stringstream ss;
-    ss << randNum(1, 10) << " + " << randNum(1, 10);
-    return ss.str();
-}
-
-int mathA(string q) {    // ADD THIS FUNCTION
-    int a, b;
-    char op;
-    stringstream ss(q);
-    ss >> a >> op >> b;
-    return a + b;
-}
-
-void pause() {           // ADD THIS FUNCTION
-    cout << "Press Enter...";
+void handleTrapDamage(int& hp, int difficulty) {
+    hp -= 10;
+    cout << "\n💣 BOMB TRAP! You HP -10 !" << endl;
+    cout << "HP LEFT: " << hp << endl;
+    cout << "(Press Enter to continue...)" << endl;
     cin.ignore();
     cin.get();
+}
+
+bool solveMathPuzzle(int difficulty) {
+    // Seed random once
+    if (!randSeeded) {
+        srand(time(0));
+        randSeeded = true;
+    }
+
+    int a, b, ans, userAns;
+    char op;
+
+// there will only be + or - in difficulty 0
+    if (difficulty == 0) {
+        a = rand() % 15 + 1;
+        b = rand() % 15 + 1;
+        if (rand() % 2 == 0) {
+            op = '+';
+            ans = a + b;
+        } else {
+            op = '-';
+            // Ensure no negative answer
+            if (a < b) swap(a, b);
+            ans = a - b;
+        }
+    }
+//there will only be +/ in difficulty 1
+    else if (difficulty == 1) {
+        if (rand() % 2 == 0) {
+            a = rand() % 12 + 1;
+            b = rand() % 12 + 1;
+            op = '*';
+            ans = a * b;
+        } else {
+            b = rand() % 10 + 1;
+            ans = rand() % 10 + 1;
+            a = b * ans;
+            op = '/';
+        }
+    }
+
+    else {
+        int type = rand() % 4;
+        if (type == 0) {
+            a = rand() % 20 + 1;
+            b = rand() % 20 + 1;
+            op = '+';
+            ans = a + b;
+        } else if (type == 1) {
+            a = rand() % 20 + 1;
+            b = rand() % 20 + 1;
+            if (a < b) swap(a, b);
+            op = '-';
+            ans = a - b;
+        } else if (type == 2) {
+            a = rand() % 15 + 1;
+            b = rand() % 15 + 1;
+            op = '*';
+            ans = a * b;
+        } else {
+            b = rand() % 12 + 1;
+            ans = rand() % 12 + 1;
+            a = b * ans;
+            op = '/';
+        }
+    }
+
+    // Show question
+    cout << "\nSolve: " << a << " " << op << " " << b << " = ";
+    cin >> userAns;
+
+    if (userAns == ans) {
+        return true;
+    } else {
+        cout << "❌ Wrong answer!" << endl;
+        return false;
+    }
 }
