@@ -98,7 +98,7 @@ void printMap(const Room& room, const Player& player) {
         cout << endl;
     }
     if (player.currentLevel == LEVEL1 && player.difficulty == MEDIUM && !room.hasKey) {
-        cout << "Hint: " << getDirectionHint(room.keyX, room.keyY, player.x, player.y) << endl;
+        cout << "💫 Hint: " << getDirectionHint(room.keyX, room.keyY, player.x, player.y) << endl;
     }
 }
 //the hints function
