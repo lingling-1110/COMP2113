@@ -3,25 +3,20 @@
 
 #include <vector>
 #include <string>
+#include "constants.h"
 using namespace std;
 
-class Player {
-public:
-    Player();
-    void add(string item);
-    bool has(string item);
-    void remove(string item);
-    void show();
-    void hurt(int dmg);
-    void setDiff(int d);
-    int getDiff();
-    int getHp();
-    void nextLevel();
-    int getLevel();
+struct Player {
+    int x, y;
+    int hp;
 
-private:
-    vector<string> inv;
-    int hp, diff, level;
+    string* inventory;   // DYNAMIC ARRAY 
+    int inventorySize;       
+    int inventoryCapacity;   
+    int currentLevel;
+    int difficulty;
 };
+void movePlayer(Player& player, char cmd);
+void cleanupPlayer(Player& player);
 
 #endif
