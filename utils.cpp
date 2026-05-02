@@ -88,7 +88,6 @@ bool solveMathPuzzle(int difficulty) {
     if (userAns == ans) {
         return true;
     } else {
-        cout << "❌ Wrong answer!" << endl;
         return false;
     }
 }
