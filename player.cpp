@@ -1,65 +1,38 @@
 #include "player.h"
-#include <iostream>
-#include <vector>    // ADD THIS
-#include <string>    // ADD THIS
+#include <cstdlib>
 
 using namespace std;
+// Initialize player
+void initializePlayer(Player& player, int difficulty) {
+    player.x = MAP_WIDTH / 2;
+    player.y = MAP_HEIGHT / 2;
+    player.hp = MAX_HP;
+    
 
-Player::Player() : hp(100), diff(1), level(0) {}
+    player.inventoryCapacity = 5;
+    player.inventory = new :string[player.inventoryCapacity]; //dynamic memory
+    player.inventorySize = 0;
 
-void Player::add(string item) { 
-    inv.push_back(item); 
+    player.currentLevel = LEVEL1;
+    player.difficulty = difficulty;
 }
 
-bool Player::has(string item) {
-    for (string i : inv) 
-        if (i == item) return true;
-    return false;
-}
-
-void Player::remove(string item) {
-    for (int i = 0; i < inv.size(); i++) {
-        if (inv[i] == item) { 
-            inv.erase(inv.begin() + i); 
-            return; 
-        }
+void movePlayer(Player& player, char direction) {
+    switch(direction) {
+        case 'w': player.y--; break;
+        case 's': player.y++; break;
+        case 'a': player.x--; break;
+        case 'd': player.x++; break;
+        default: break;
     }
 }
 
-void Player::show() {
-    if (inv.empty()) { 
-        cout << "Empty\n"; 
-        return; 
-    }
-    for (string i : inv) 
-        cout << i << " ";
-    cout << endl;
-}
 
-void Player::hurt(int dmg) {
-    if (diff == 0) dmg /= 2;   // Easy: half damage
-    if (diff == 2) dmg *= 2;   // Hard: double damage
-    hp -= dmg;
-    if (hp < 0) hp = 0;
-    cout << "HP: " << hp << endl;
-}
+// dynamic memory clean up
 
-void Player::setDiff(int d) { 
-    diff = d; 
-}
-
-int Player::getDiff() { 
-    return diff; 
-}
-
-int Player::getHp() { 
-    return hp; 
-}
-
-void Player::nextLevel() { 
-    level++; 
-}
-
-int Player::getLevel() { 
-    return level; 
+void cleanupPlayer(Player& player) {
+    delete[] player.inventory;
+    player.inventory = nullptr;
+    player.inventorySize = 0;
+    player.inventoryCapacity = 0;
 }
