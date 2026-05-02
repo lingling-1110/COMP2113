@@ -15,7 +15,7 @@ Adjustable Difficulty: Players can choose difficulty preferences at the beginnin
 |---------------------------------|--------------------------------|
 | Random events                   | Random key/item spawns, random clue text, random trap placement      |
 | Data structures                 | Structs for Player, Room, InventoryItem, and puzzles; linked list/array for inventory     |
-| Dynamic memory                  | Dynamic array for all rooms           |
+| Dynamic memory                  | Dynamic array for inventory          |
 | File I/O                        | Save/load game                 |
 | Program codes in multiple files  |  Main, game, player, room, utils, save (separate .h / .cpp)      |
 | Difficulty levels               | Easy / Medium / Hard — different clues, trap damage, puzzle difficulty|
@@ -23,22 +23,34 @@ Adjustable Difficulty: Players can choose difficulty preferences at the beginnin
 ## Non-standard libraries🗂️
 Not used, standard libraries only.
 ## How to run
-Compile
 ```bash
-g++ main.cpp game.cpp player.cpp room.cpp utils.cpp save.cpp -o escape_game
+make
 ```
 ```bash
-./escape_game
+./game
 ```
 ## How to Play 🤪
-1.Run the executable and select New Game or Load Game from the main menu.
-2.Choose your difficulty level: 
-Easy: More clues, weaker traps, simple puzzles
-Medium: Balanced challenge with limited hints
-Hard: No hints, deadly traps, and complex riddles
-3.Use text commands to move, interact with objects, and collect items.
-4.Solve puzzles, avoid traps, and progress through all rooms to escape!
-5.Use the save command at any time to save your progress.
+1. Launch the game, choose 1 = New Game or 2 = Load Saved Game.
+2. If you choose new game, select the difficulty.
+3. Use W A S D to move your player around the map.
+4. There are total 4 rooms for you to escape.
+5. Press L anytime to save your game progress, and press Q to quit the game.
+6. If your HP drops to 0 → Game Over.
+7. If you pass the Final Level → You Win & Escape the building.
+
+## Description for each level
+Level 1 Rules:
+Find and pick up the Key on the map.
+Bring the key to the Door (D) to unlock and go to next room.
+Level 2 Rules:
+Walk to the M spot first to answer a math puzzle.
+After solving correctly, go to Door (D) to proceed.
+You cannot open the door before solving the puzzle at M.
+Level 3 Rules:
+No key or puzzle required — just walk to the Door to advance. However, you need to advoid any bump.
+Final Level Rules:
+Need both collect Key + solve Math puzzle to escape.
+
 
 ### File Overview
 | File                        | Author                      | Purpose                 |
