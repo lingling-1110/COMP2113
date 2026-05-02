@@ -165,13 +165,16 @@ void startGame() {
         playing = runLevel(p);
     }
 
-    if (p.hp <= 0)
+    if (p.hp <= 0){
         cout << "YOU DIED. GAME OVER." << endl;
-    if (p.currentLevel > FINAL_LEVEL)
+        cin.ignore();
+        cin.get();
+    }
+    if (p.currentLevel > FINAL_LEVEL){
         cout << "YOU ESCAPED! WIN!" << endl;
         cin.ignore();
         cin.get();
-
+    }
     // Clean up dynamic memory
     cleanupPlayer(p);
 }
