@@ -169,6 +169,8 @@ void startGame() {
         cout << "YOU DIED. GAME OVER." << endl;
     if (p.currentLevel > FINAL_LEVEL)
         cout << "YOU ESCAPED! WIN!" << endl;
+        cin.ignore();
+        cin.get();
 
     // Clean up dynamic memory
     cleanupPlayer(p);
