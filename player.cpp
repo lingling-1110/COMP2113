@@ -10,7 +10,7 @@ void initializePlayer(Player& player, int difficulty) {
     
 
     player.inventoryCapacity = 5;
-    player.inventory = new :string[player.inventoryCapacity]; //dynamic memory
+    player.inventory = new string[player.inventoryCapacity]; 
     player.inventorySize = 0;
 
     player.currentLevel = LEVEL1;
