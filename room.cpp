@@ -1,199 +1,97 @@
+#include "room.h"
 #include <iostream>
-#include <string>
 #include <cstdlib>
 #include <ctime>
-#include "room.h"
 
 using namespace std;
 
-void def(Room &r) {
-  r.id = 0;
-  r.layout = nullptr;
-  r.room_name = "";
-  r.desc = "";
-  r.unlocked = true;
-  r.ans = 0;
-  r.result = 0;
-  r.item_pos = 0;
-  r.trap = 0;
-  r.trap_pos = 0;
-  r.item_num = 0;
-  r.trapX = 0;
-  r.trapY = 0;
+void initializeRoom(Room& room, int level, int difficulty) {
+    // create empty map
+    room.map.resize(MAP_HEIGHT, string(MAP_WIDTH, ' '));
+    room.hasKey = false;
+    room.isCompleted = false;
+    room.traps.clear();
+    
+    // add walls
+    for (int i = 0; i < MAP_HEIGHT; i++) {
+        room.map[i][0] = '#';
+        room.map[i][MAP_WIDTH - 1] = '#';
+    }
+    for (int i = 0; i < MAP_WIDTH; i++) {
+        room.map[0][i] = '#';
+        room.map[MAP_HEIGHT - 1][i] = '#';
+    }
+    
+    // random positions
+    srand(time(0));
+    room.keyX = rand() % (MAP_WIDTH - 2) + 1;
+    room.keyY = rand() % (MAP_HEIGHT - 2) + 1;
+    room.doorX = rand() % (MAP_WIDTH - 2) + 1;
+    room.doorY = rand() % (MAP_HEIGHT - 2) + 1;
+    
+    // level setup
+    if (level == LEVEL1) {
+        if (difficulty == EASY) room.map[room.keyY][room.keyX] = 'K';
+        room.map[room.doorY][room.doorX] = 'D';
+    }
+    else if (level == LEVEL2) {
+        room.map[room.doorY][room.doorX] = 'D';
+        room.map[rand()%(MAP_HEIGHT-2)+1][rand()%(MAP_WIDTH-2)+1] = 'M';
+    }
+    else if (level == LEVEL3) {
+        room.map[room.doorY][room.doorX] = 'D';
+        int trapNum = (difficulty == HARD) ? 6 : 4;
+        for (int i = 0; i < trapNum; i++) {
+            int tx = rand() % (MAP_WIDTH - 2) + 1;
+            int ty = rand() % (MAP_HEIGHT - 2) + 1;
+            room.traps.push_back({tx, ty});
+            if (difficulty == EASY) room.map[ty][tx] = 'B';
+        }
+    }
+    else if (level == FINAL_LEVEL) {
+        if (difficulty == EASY) room.map[room.keyY][room.keyX] = 'K';
+        room.map[room.doorY][room.doorX] = 'D';
+        room.map[rand()%(MAP_HEIGHT-2)+1][rand()%(MAP_WIDTH-2)+1] = 'M';
+        
+        int trapNum = (difficulty == HARD) ? 6 : 4;
+        for (int i = 0; i < trapNum; i++) {
+            int tx = rand() % (MAP_WIDTH - 2) + 1;
+            int ty = rand() % (MAP_HEIGHT - 2) + 1;
+            room.traps.push_back({tx, ty});
+            if (difficulty == EASY) room.map[ty][tx] = 'B';
+        }
+    }
 }
 
-bool able(Room &r, int x, int y) {
-  if (x < 0 || x >= r.w || y < 0 || y >=r.h) {
+bool isWall(const Room& room, int x, int y) {
+    return room.map[y][x] == '#';
+}
+
+bool checkTrapCollision(const Room& room, int x, int y) {
+    for (auto& trap : room.traps) {
+        if (trap.first == x && trap.second == y) return true;
+    }
     return false;
-  }
-  if (r.layout[y][x] == '#') {
-    return false;
-  } 
-  return true;
 }
 
-void create_rm(Room &r, int num, string name, string diff) {
-  free_rm(r);
-  r.id = num;
-  r.room_name = name;
-  
-  if (num == 1 || num == 4) {
-    r.unlocked = false;
-  } else {
-    r.unlocked = true;
-  }
-  
-  int multi = 0;
-  if (diff == "EASY") {
-    multi = 1;
-  } else if (diff == "MEDIUM") {
-    multi = 2;
-  } else if (diff == "HARD") {
-    multi = 3;
-  }
-
-  r.trap = multi * 10;
-  
-  if (num == 1) {
-    r.item_pos = rand() % 3 + 1;
-    r.desc = "Three mysterious cabinets surround you. A key is needed to open the door.";
-  } else if (num == 2) {
-    r.ans = rand() % 9000 + 1000;
-    r.desc = "A door with a 4-digit keypad.";
-  } else if (num == 3) {
-    r.trapX = 5;
-    r.trapY = 2;
-    r.desc = "The floor tiles look suspicious...";
-  } else if (num == 4) {
-    if (diff == "EASY") {
-      r.item_num = 1;
-    } else if (diff == "MEDIUM") {
-      r.item_num = 2;
-    } else if (diff == "HARD") {
-      r.item_num = 3;
+void printMap(const Room& room, const Player& player) {
+    system("clear");
+    for (int y = 0; y < MAP_HEIGHT; y++) {
+        for (int x = 0; x < MAP_WIDTH; x++) {
+            if (x == player.x && y == player.y) cout << "P";
+            else cout << room.map[y][x];
+        }
+        cout << endl;
     }
-
-    int x = rand() % 10 + 1;
-    int y = rand() % 10 + 1;
-    r.result = x * y;
-    r.ans = r.result;
-    r.desc = "The final exit. Solve this to escape: " + to_string(x) + " x " + to_string(y);
-  }
-
-  r.w = 12;
-  r.h = 6;
-
-  r.layout = new char*[r.h];
-  for (int i = 0; i < r.h; i++) {
-    r.layout[i] = new char[r.w];
-  }
-  
-  for (int i = 0; i < r.h; i++) {
-    for (int j = 0; j < r.w; j++) {
-      if (i == 0 || i == r.h - 1 || j == 0 || j == r.w - 1) {
-        r.layout[i][j] = '#';
-      } else {
-        r.layout[i][j] = '.';
-      }
+    if (player.currentLevel == LEVEL1 && player.difficulty == MEDIUM && !room.hasKey) {
+        cout << "Hint: " << getDirectionHint(room.keyX, room.keyY, player.x, player.y) << endl;
     }
-  }
-
-  r.layout[3][10] = 'E';
-  
 }
-
-void visual_map(Room &r, int pX, int pY) {
-
-  if (system("clear") != 0) {
-    system("cls");
-  }
-
-  cout << " --- " << r.room_name << " --- " << endl;
-  
-  for (int i = 0; i < r.h; i++) {
-    for (int j = 0; j < r.w; j++) {
-      if (i == pY && j == pX) {
-        cout << "P";
-      } else {
-        cout << r.layout[i][j];
-      }
-    }
-    cout << endl;
-  }
-}
-
-bool inTrap(Room &r, int pX, int pY) {
-  if (r.id == 3 && pX == r.trapX && pY == r.trapY) {
-    cout << "OH NO! YOU TRIGGERED A TRAP!" << endl;
-    cout << "You lost " << r.trap << " HP!" << endl;
-    return true;
-  }
-
-  return false;
-}
-
-void discover(Room &r, int sel, bool &found_key) {
-  found_key = false;
-  
-  if (r.id == 1) {
-    if (sel == r.item_pos) {
-      cout << "You found the key!" << endl;
-      r.unlocked = true;
-      found_key = true;
-    } else {
-      cout << "Arghhh! So many dust! But nothing useful..." << endl;
-    }
-  } else if (r.id == 4) {
-    found_key = true;
-    string items[3] = {"An emergency flare", "A security bypass keycard", "A rusty crowbar"};
-    cout << items[rand() % 3] << " is found among the trash!" << endl;
-  }
-}
-
-void clue(Room &r, string diff) {
-  if (diff == "EASY" || diff == "MEDIUM") {
-    cout << "[It's time to get some hints!]" << endl;
-  }
-  if (diff == "EASY") {
-    cout << "The password is: " << r.ans << endl;
-  } else if (diff == "MEDIUM") {
-    cout << "The password starts with " << r.ans / 1000 << "." << endl;
-  } else if (diff == "HARD") {
-    cout << "Almost there! You can do it!" << endl;
-  }
-}
-
-void enter_rm(Room &r, string diff, int found_num) {
-  cout << "You are entering " << r.room_name << "." << endl;
-
-  if (r.id == 1) {
-    cout << "This room is locked! Find a key to escape!" << endl;
-  } else if (r.id == 2) {
-    cout << "There's a combination lock in front of you! Try to solve it!" << endl;
-    clue(r, diff);
-  } else if (r.id == 3 && diff == "EASY") {
-    cout << "There are traps! Be careful!" << endl;
-  } else if (r.id == 3 && diff == "MEDIUM") {
-    cout << "There are some traps! Watch your steps!" << endl;
-  } else if (r.id == 3 && diff == "HARD") {
-    cout << "Danger! Traps everywhere! Mind your health!" << endl;
-  } else if (r.id == 4) {
-    int remain = r.item_num - found_num;
-    if (remain > 0) {
-      cout << "The exit is overthere! Find " << remain << " more items!" << endl;
-    } else {
-      cout << "You have everything! The door is opened!" << endl;
-      r.unlocked = true;
-    }
-  }
-}
-
-void free_rm(Room &r) {
-  if (r.layout != nullptr) {
-    for (int i = 0; i < r.h; i++) {
-      delete[] r.layout[i];
-    }
-    delete[] r.layout;
-    r.layout = nullptr;
-  }
+//the hints function
+string getDirectionHint(int keyX, int keyY, int playerX, int playerY) {
+    if (keyY < playerY) return "Look north to find the key!";
+    if (keyY > playerY) return "Look south to find the key!";
+    if (keyX < playerX) return "Look west to find the key!";
+    if (keyX > playerX) return "Look east to find the key!";
+    return "Key is nearby!";
 }
