@@ -6,13 +6,11 @@
 using namespace std;
 
 void initializeRoom(Room& room, int level, int difficulty) {
-    // create empty map
     room.map.resize(MAP_HEIGHT, string(MAP_WIDTH, ' '));
     room.hasKey = false;
     room.isCompleted = false;
     room.traps.clear();
     
-    // add walls
     for (int i = 0; i < MAP_HEIGHT; i++) {
         room.map[i][0] = '#';
         room.map[i][MAP_WIDTH - 1] = '#';
@@ -22,14 +20,12 @@ void initializeRoom(Room& room, int level, int difficulty) {
         room.map[MAP_HEIGHT - 1][i] = '#';
     }
     
-    // random positions
     srand(time(0));
     room.keyX = rand() % (MAP_WIDTH - 2) + 1;
     room.keyY = rand() % (MAP_HEIGHT - 2) + 1;
     room.doorX = rand() % (MAP_WIDTH - 2) + 1;
     room.doorY = rand() % (MAP_HEIGHT - 2) + 1;
     
-    // level setup
     if (level == LEVEL1) {
         if (difficulty == EASY) room.map[room.keyY][room.keyX] = 'K';
         room.map[room.doorY][room.doorX] = 'D';
@@ -38,27 +34,45 @@ void initializeRoom(Room& room, int level, int difficulty) {
         room.map[room.doorY][room.doorX] = 'D';
         room.map[rand()%(MAP_HEIGHT-2)+1][rand()%(MAP_WIDTH-2)+1] = 'M';
     }
+//level 3
     else if (level == LEVEL3) {
         room.map[room.doorY][room.doorX] = 'D';
-        int trapNum = (difficulty == HARD) ? 6 : 4;
+        
+        int trapNum;
+        if (difficulty == EASY) trapNum = 3;
+        else if (difficulty == MEDIUM) trapNum = 15;   // 15 VISIBLE
+        else trapNum = 25;                             // 25 INVISIBLE
+
         for (int i = 0; i < trapNum; i++) {
             int tx = rand() % (MAP_WIDTH - 2) + 1;
             int ty = rand() % (MAP_HEIGHT - 2) + 1;
             room.traps.push_back({tx, ty});
-            if (difficulty == EASY) room.map[ty][tx] = 'B';
+            
+            if (difficulty == MEDIUM) {
+                room.map[ty][tx] = 'B';
+            }
         }
     }
+// for the final level
     else if (level == FINAL_LEVEL) {
         if (difficulty == EASY) room.map[room.keyY][room.keyX] = 'K';
         room.map[room.doorY][room.doorX] = 'D';
         room.map[rand()%(MAP_HEIGHT-2)+1][rand()%(MAP_WIDTH-2)+1] = 'M';
         
-        int trapNum = (difficulty == HARD) ? 6 : 4;
+        int trapNum;
+        if (difficulty == EASY) trapNum = 3;
+        else if (difficulty == MEDIUM) trapNum = 15;   // 15 VISIBLE
+        else trapNum = 25;                             // 25 INVISIBLE   same as above 
+
         for (int i = 0; i < trapNum; i++) {
             int tx = rand() % (MAP_WIDTH - 2) + 1;
             int ty = rand() % (MAP_HEIGHT - 2) + 1;
             room.traps.push_back({tx, ty});
-            if (difficulty == EASY) room.map[ty][tx] = 'B';
+            
+            // show the trap in medium difficulty
+            if (difficulty == MEDIUM) {
+                room.map[ty][tx] = 'B';
+            }
         }
     }
 }
