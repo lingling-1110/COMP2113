@@ -66,10 +66,9 @@ bool runLevel(Player& player) {
             // Check if player steps on M position
             if (room.map[player.y][player.x] == 'M') {
                 cout << "\n=====================================" << endl;
-                cout << " 🧮 MATH PUZZLE SPOT (M)" << endl;
-                cout << "=====================================\n" << endl;
+                cout << " 🧮 MATH PUZZLE (M)\n" << endl;
 
-                // SHOW QUESTION ONLY HERE
+                // SHOW QUESTION 
                 mathSolved = solveMathPuzzle(player.difficulty);
 
                 if (mathSolved) {
@@ -96,7 +95,7 @@ bool runLevel(Player& player) {
             if (player.currentLevel == LEVEL1)
                 pass = room.hasKey;
 
-            // LEVEL 2: DOOR ONLY CHECKS IF MATH WAS SOLVED
+            // LEVEL 2: door open when the math solved
             else if (player.currentLevel == LEVEL2)
                 pass = mathSolved;
 
@@ -134,7 +133,7 @@ bool runLevel(Player& player) {
 }
 
 void startGame() {
-    cout << "==== ESCAPE THE BUILDING ====" << endl;
+    cout << "==== ESCAPE THE Room ====" << endl;
     cout << "1. New Game" << endl;
     cout << "2. Load Game" << endl;
     int c;
