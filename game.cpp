@@ -137,8 +137,9 @@ bool runLevel(Player& player) {
     return false;
 }
 
+// first page
 void startGame() {
-    cout << "==== ESCAPE THE Room ====" << endl;
+    cout << "==== ESCAPE THE ROOM ====" << endl;
     cout << "1. New Game" << endl;
     cout << "2. Load Game" << endl;
     int c;
