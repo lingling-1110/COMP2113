@@ -22,8 +22,8 @@ bool runLevel(Player& player) {
         // description for each level
         string levelDesc;
         switch(player.currentLevel) {
-            case LEVEL1: levelDesc = "Find the Key! (Get your key to unlock the room!)"; break;
-            case LEVEL2: levelDesc = "Math time!"; break;
+            case LEVEL1: levelDesc = "Find the Key! 🔑 (Get your key to unlock the room!)"; break;
+            case LEVEL2: levelDesc = "Math time! 🧮 "; break;
             case LEVEL3: levelDesc = "Trap Room! (Please aviod stepping on any BOMP!"; break;
             case FINAL_LEVEL: levelDesc = "Final Escape! (Try to discover by yourself!)"; break;
             default: levelDesc = "Unknown";
@@ -54,12 +54,16 @@ bool runLevel(Player& player) {
         // level 1 - key
         if (player.x == room.keyX && player.y == room.keyY && !room.hasKey) {
             room.hasKey = true;
-            cout << "\nYou picked up the hidden KEY! Please take your key to open the door" << endl;
+            cout << "\nYou picked up the hidden 🔑! Please take your key to open the door" << endl;
             cout << "(Press Enter to continue...)" << endl;
             cin.ignore();
             cin.get();
         }
-      
+
+        if (player.currentLevel == FINAL_LEVEL && player.difficulty == 1 && !room.hasKey) {
+            string hint = getDirectionHint(room.keyX, room.keyY, player.x, player.y);
+            cout << "\n🔑 Hint: Key is " << hint << endl;
+        }
     
         // LEVEL 2 and final level of   Math Question 
         if ((player.currentLevel == LEVEL2 || player.currentLevel == FINAL_LEVEL) && !mathSolved) {
