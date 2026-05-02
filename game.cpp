@@ -1,114 +1,178 @@
+#include "game.h"
+#include "player.h"
+#include "room.h"
+#include "utils.h"
+#include "save.h"
 
 #include <iostream>
-#include <cstdlib>
-#include "game.h"
-
 using namespace std;
 
 
-Game::Game() {
-  totalRooms = 4;
-  rooms = nullptr;
-  isRunning = true;
-}
 
-Game::~Game() {
-  delete[] rooms;
-}
+bool runLevel(Player& player) {
+    Room room;
+    initializeRoom(room, player.currentLevel, player.difficulty);
 
-// to start the game
-void Game::start() {
+    
+    
 
-  cout << "Welcome to Escape the Room!" << endl;
-  cout << "Please choose your difficulty preference (0=Easy, 1=Medium, 2=Hard): ";
+    while (player.hp > 0) {
+        printMap(room, player);
 
-  int n;
-  cin >> d;
-  difficulty = static_cast<Difficulty>(n);
-
-  player.hp = 3;
-  player.roomnum = 0;
-
-  Roomssetup();
-
-}
-
-// set up the room
-void Game:Romssetup(){
-  rooms = new Room[totalRooms];
-
-  for (int i = 0; i < totalRooms; i++) {
-    room[i].id = i;
-    room[i].unlocked = false;
-  }
-}
-
-// Display status
-void Game::displayStatus() {
-  cout << "\n--- Current Status ---" << endl;
-  cout << "Your HP: " << player.hp << endl;
-  cout << "Room: " << player.roomIndex + 1 << endl;
-}
-
-// process player input
-void Game::processInput() {
-  cout << "Choose action: (0=search, 1=move, 2=quit): ";
-
-  int choice;
-  cin >> choice;
-
-  if (choice == 0) {
-    solveRoomEvent();
-  }
-  elif (choice == 2) {
-    if (rooms[player.roomnum].unlocked){
-      nextRoom();
-    } else {
-      cout << "You must unlocked this room first." << endl;
-    }
-  }
-  else if (choice == 3) {
-    gameOver = true
-  }
-}
-
-// moving to next room
-void Game::nextRoom() {
-  player.roomnum++;
-
-  if (player.roomnum >= totalRooms) {
-    cout << "You escaped all the Rooms successfully!" << endl;
-    gameOver = true;
-  }
-}
-
-// Handle random event (draft) not finished
-void Game::handleRoomEvent() {
-    int event = rand() % 3;
-
-    if (event == 0) {
-        cout << "You found a key! Room cleared." << endl;
-        rooms[player.roomIndex].cleared = true;
-    } 
-    else if (event == 1) {
-        cout << "Trap triggered! You lose 1 HP." << endl;
-        player.hp--;
-
-        if (player.hp <= 0) {
-            cout << "You died!" << endl;
-            gameOver = true;
+        // description for each level
+        string levelDesc;
+        switch(player.currentLevel) {
+            case LEVEL1: levelDesc = "Find the Key! (Get your key to unlock the room!)"; break;
+            case LEVEL2: levelDesc = "Math time!"; break;
+            case LEVEL3: levelDesc = "Trap Room! (Please aviod stepping on any BOMP!"; break;
+            case FINAL_LEVEL: levelDesc = "Final Escape! (Try to discover by yourself!)"; break;
+            default: levelDesc = "Unknown";
         }
-    } 
-    else {
-        cout << "Nothing found..." << endl;
+        
+        cout << "HP: " << player.hp  << " | Level: " << player.currentLevel << " - " << levelDesc << endl;
+        
+        
+        cout << "Choose your action: | w/a/s/d = move | l = save | q = quit" << endl;
+        char cmd;
+        cin >> cmd;
+
+        if (cmd == 'q') return false;
+        if (cmd == 'l') {
+            saveGame(player);
+            continue;
+        }
+
+        int oldX = player.x;
+        int oldY = player.y;
+        movePlayer(player, cmd);
+
+        if (isWall(room, player.x, player.y)) {
+            player.x = oldX;
+            player.y = oldY;
+        }
+
+        // level 1 - key
+        if (player.x == room.keyX && player.y == room.keyY && !room.hasKey) {
+            room.hasKey = true;
+            cout << "\nYou picked up the hidden KEY! Please take your key to open the door" << endl;
+            cout << "(Press Enter to continue...)" << endl;
+            cin.ignore();
+            cin.get();
+        }
+      
+        bool mathSolved = false;
+        // LEVEL 2: M = Math Question 
+        if (player.currentLevel == LEVEL2 && !mathSolved) {
+            // Check if player steps on M position
+            if (room.map[player.y][player.x] == 'M') {
+                cout << "\n=====================================" << endl;
+                cout << " 🧮 MATH PUZZLE SPOT (M)" << endl;
+                cout << "=====================================\n" << endl;
+
+                // SHOW QUESTION ONLY HERE
+                mathSolved = solveMathPuzzle(player.difficulty);
+
+                if (mathSolved) {
+                    cout << "\n✅ Correct! Now go to DOOR (D) to continue your adventure." << endl;
+                } else {
+                    cout << "\n❌ Wrong answer! Try again at M position." << endl;
+                }
+
+                cout << "(Press Enter to continue...)" << endl;
+                cin.ignore();
+                cin.get();
+            }
+        }
+
+        // Trap collision
+        if (checkTrapCollision(room, player.x, player.y)) {
+            handleTrapDamage(player.hp, player.difficulty);
+        }
+
+        // Door interaction
+        if (player.x == room.doorX && player.y == room.doorY) {
+            bool pass = false;
+
+            if (player.currentLevel == LEVEL1)
+                pass = room.hasKey;
+
+            // LEVEL 2: DOOR ONLY CHECKS IF MATH WAS SOLVED
+            else if (player.currentLevel == LEVEL2)
+                pass = mathSolved;
+
+            else if (player.currentLevel == LEVEL3)
+                pass = true;
+            else if (player.currentLevel == FINAL_LEVEL)
+                pass = room.hasKey && solveMathPuzzle(player.difficulty);
+
+            if (pass) {
+                cout << "\n=====================================" << endl;
+                cout << " You successfully open the door! 🚪✅" << endl;
+                cout << " Moving to the next room... " << endl;
+                cout << "=====================================\n" << endl;
+
+                player.currentLevel++;
+                return true;
+            } else {
+                if (player.currentLevel == LEVEL1) {
+                    cout << "\n❌ You must get the Key at K first!" << endl;
+                }
+                // Message if player can't open door yet
+                if (player.currentLevel == LEVEL2) {
+                    cout << "\n❌ You must check the MATH PUZZLE at M first!" << endl;
+                }
+                if (player.currentLevel == FINAL_LEVEL) {
+                    cout << "\n❌ You must get the Key at K first, followed by the math puzzle!" << endl;
+                }
+                cout << "(Press Enter to continue...)" << endl;
+                cin.ignore();
+                cin.get();
+            }
+        }
     }
+    return false;
 }
 
-// Check game over
-bool Game::isGameOver() {
-    return gameOver;
-}
+void startGame() {
+    cout << "==== ESCAPE THE BUILDING ====" << endl;
+    cout << "1. New Game" << endl;
+    cout << "2. Load Game" << endl;
+    int c;
+    cin >> c;
 
+    Player p;
+    p.hp = 100; // Default HP
+    p.currentLevel = LEVEL1; // Start at level 1
+    p.inventory = new string[5]; 
+    p.inventorySize = 0;
+    p.inventoryCapacity = 5;
+    p.x = 1; // Default starting X
+    p.y = 1; // Default starting Y
+
+    if (c == 2 && loadGame(p)) {
+        cout << "Loaded successfully!" << endl;
+    } else {
+        cout << "Difficulty (0=Easy, 1=Medium, 2=Hard): ";
+        int d;
+        cin >> d;
+        p.difficulty = d; // Set difficulty for the player
+        Room tempRoom;
+        initializeRoom(tempRoom, p.currentLevel, p.difficulty);
+    }
+
+    bool playing = true;
+    while (playing && p.hp > 0 && p.currentLevel <= FINAL_LEVEL) {
+        playing = runLevel(p);
+    }
+
+    if (p.hp <= 0)
+        cout << "YOU DIED. GAME OVER." << endl;
+    if (p.currentLevel > FINAL_LEVEL)
+        cout << "YOU ESCAPED! WIN!" << endl;
+
+    // Clean up dynamic memory
+    cleanupPlayer(p);
+}
 
 
 
