@@ -1,36 +1,26 @@
 #ifndef ROOM_H
 #define ROOM_H
 
+#include <vector>
 #include <string>
-
+#include "constants.h"
+#include "player.h"
 using namespace std;
 
 struct Room {
-  int id;
-  string room_name;
-  string desc;
-  bool unlocked;
-  int ans;
-  int result;
-  int item_pos;
-  int item_num;
-  int trap;
-  int trap_pos;
-  int trapX;
-  int trapY;
-  int w;
-  int h;
-  char** layout;
+    vector<string> map;
+    int keyX, keyY;
+    int doorX, doorY;
+    vector<pair<int, int>> traps;
+    bool hasKey;
+    bool isCompleted;
 };
 
-void def(Room &r);
-bool able(Room &r, int x, int y);
-void create_rm(Room &r, int num, string name, string diff);
-void visual_map(Room &r, int pX, int pY);
-bool inTrap(Room &r, int pX, int pY);
-void discover(Room &r, int sel, bool &found_key);
-void clue(Room &r, string diff);
-void enter_rm(Room &r, string diff, int found_num);
-void free_rm(Room &r);
+// Room functions
+void initializeRoom(Room& room, int level, int difficulty);
+bool isWall(const Room& room, int x, int y);
+bool checkTrapCollision(const Room& room, int x, int y);
+void printMap(const Room& room, const Player& player);
+string getDirectionHint(int keyX, int keyY, int playerX, int playerY);
 
 #endif
