@@ -103,9 +103,9 @@ void printMap(const Room& room, const Player& player) {
 }
 //the hints function
 string getDirectionHint(int keyX, int keyY, int playerX, int playerY) {
-    if (keyY < playerY) return "Look north to find the key!";
-    if (keyY > playerY) return "Look south to find the key!";
-    if (keyX < playerX) return "Look west to find the key!";
-    if (keyX > playerX) return "Look east to find the key!";
+    if (keyY < playerY) return "Look north to find the key! 👀";
+    if (keyY > playerY) return "Look south to find the key! 👀";
+    if (keyX < playerX) return "Look west to find the key! 👀";
+    if (keyX > playerX) return "Look east to find the key! 👀";
     return "Key is nearby!";
 }
