@@ -13,7 +13,7 @@ bool runLevel(Player& player) {
     Room room;
     initializeRoom(room, player.currentLevel, player.difficulty);
 
-    
+    bool mathSolved = false;
     
 
     while (player.hp > 0) {
@@ -60,7 +60,7 @@ bool runLevel(Player& player) {
             cin.get();
         }
       
-        bool mathSolved = false;
+    
         // LEVEL 2: M = Math Question 
         if (player.currentLevel == LEVEL2 && !mathSolved) {
             // Check if player steps on M position
