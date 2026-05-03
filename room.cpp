@@ -53,8 +53,8 @@ void initializeRoom(Room& room, int level, int difficulty) {
             int tx = rand() % (MAP_WIDTH - 2) + 1;
             int ty = rand() % (MAP_HEIGHT - 2) + 1;
             room.traps.push_back({tx, ty});
-            
-            if (difficulty == MEDIUM) {
+            // show the trap in medium & easy difficulty
+            if (difficulty == EASY || difficulty == MEDIUM) {
                 room.map[ty][tx] = 'B';
             }
         }
@@ -75,8 +75,8 @@ void initializeRoom(Room& room, int level, int difficulty) {
             int ty = rand() % (MAP_HEIGHT - 2) + 1;
             room.traps.push_back({tx, ty});
             
-            // show the trap in medium difficulty
-            if (difficulty == MEDIUM) {
+            
+            if (difficulty == EASY || difficulty == MEDIUM) {
                 room.map[ty][tx] = 'B';
             }
         }
