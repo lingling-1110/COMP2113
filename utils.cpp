@@ -7,6 +7,11 @@ using namespace std;
 
 bool randSeeded = false;
 
+// What it does: Reduces the player's health point (hp) value and displays a warning message when a trap is triggered
+// Inputs:
+// - int& hp: The specific hp value to be modified directly
+// - int difficulty: The chosen difficulty level
+// Outputs: None (due to void), but handles the manual update of hp and console output
 void handleTrapDamage(int& hp, int difficulty) {
     hp -= 10;
     cout << "\n💣 BOMB TRAP! You HP -10 !" << endl;
@@ -16,6 +21,10 @@ void handleTrapDamage(int& hp, int difficulty) {
     cin.get();
 }
 
+// What it does: Generates a random math problem based on the game difficulty and verifies the player's answer
+// Inputs:
+// - int difficulty: Determines the complexity of the math operaations
+// Outputs: Returns true if the player;s answer is correct, returns false otherwise
 bool solveMathPuzzle(int difficulty) {
     // Seed random once
     if (!randSeeded) {
