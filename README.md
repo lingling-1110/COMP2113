@@ -13,6 +13,7 @@ Save & Load: Pause your game and resume later with full progress saved.
 
 Adjustable Difficulty: Players can choose difficulty preferences at the beginning of game.
 
+
 | Requirement              | How we implement               |
 |---------------------------------|--------------------------------|
 | Random events                   | Random key&door, random trap placement      |
@@ -21,6 +22,7 @@ Adjustable Difficulty: Players can choose difficulty preferences at the beginnin
 | File I/O                        | Save/load game                 |
 | Program codes in multiple files |  Makefile, constants.h; Main, game, player, room, utils, save (separate .h / .cpp)      |
 | Difficulty levels               | Easy / Medium / Hard — different clues, trap damage, puzzle difficulty|
+
 
 ## Non-standard libraries🗂️
 Not used, standard libraries only.
@@ -31,6 +33,8 @@ make
 ```bash
 ./game
 ```
+
+
 ## How to Play 🤪
 1. Launch the game, choose 1 = New Game or 2 = Load Saved Game.
 2. If you choose new game, select the difficulty.
@@ -39,6 +43,7 @@ make
 5. Press L anytime to save your game progress, and press Q to quit the game.
 6. If your HP drops to 0 → Game Over.
 7. If you pass the Final Level → You Win & Escape the building.
+
 
 ## Description for each level
 Level 1 Rules:
@@ -74,6 +79,8 @@ Need both collect Key + solve Math puzzle to escape.
 | player.cpp     | Wang You       | Implements player movement, inventory management, and cleanup for dynamically allocated inventory arrays. |
 | utils.h        | Wang You       | Declares utility functions such as trap damage handling and math puzzle generation. |
 | utils.cpp      | Wang You       | Implements math puzzles (with difficulty scaling) and trap effects. |
+
+
 ## Team members 😏
 1. Ip Hoi Ling 3036665753
 2. Chiu Wing Tung 3036216667
