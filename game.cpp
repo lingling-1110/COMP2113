@@ -27,14 +27,14 @@ bool runLevel(Player& player) {
             case LEVEL1: levelDesc = "Find the Key! 🔑 (Get your key to unlock the room!)"; break;
             case LEVEL2: levelDesc = "Math time! 🧮 "; break;
             case LEVEL3: levelDesc = "Trap Room! (Please aviod stepping on any BOMB💣!"; break;
-            case FINAL_LEVEL: levelDesc = "Final Escape! (Try to discover by yourself!)"; break;
+            case FINAL_LEVEL: levelDesc = "Final Escape! 🏁(Try to discover by yourself!)"; break;
             default: levelDesc = "Unknown";
         }
         
-        cout << "HP: " << player.hp  << " | Level: " << player.currentLevel << " - " << levelDesc << endl;
+        cout << " ❤️ HP: " << player.hp  << " | 📜 Level: " << player.currentLevel << " - " << levelDesc << endl;
         
         
-        cout << "Choose your action: | w/a/s/d = move | l = save | q = quit" << endl;
+        cout << " 👤 Choose your action: | w/a/s/d = move | l = save | q = quit" << endl;
         char cmd;
         cin >> cmd;
 
@@ -56,7 +56,7 @@ bool runLevel(Player& player) {
         // level 1 - key
         if (player.x == room.keyX && player.y == room.keyY && !room.hasKey) {
             room.hasKey = true;
-            cout << "\nYou picked up the hidden 🔑! Please take your key to open the door^_^" << endl;
+            cout << "\nYou picked up the hidden 🔑! Please take your key to open the door ^_^" << endl;
             cout << "(Press Enter to continue...)" << endl;
             cin.ignore();
             cin.get();
@@ -64,14 +64,14 @@ bool runLevel(Player& player) {
 
         if (player.currentLevel == FINAL_LEVEL && player.difficulty == 1 && !room.hasKey) {
             string hint = getDirectionHint(room.keyX, room.keyY, player.x, player.y);
-            cout << "\n🔑 Hint: Key is " << hint << endl;
+            cout << "\n💡 Hint: Key is " << hint << endl;
         }
     
         // LEVEL 2 and final level of   Math Question 
         if ((player.currentLevel == LEVEL2 || player.currentLevel == FINAL_LEVEL) && !mathSolved) {
             // Check if player steps on M position
             if (room.map[player.y][player.x] == 'M') {
-                cout << "\n 🧮 MATH PUZZLE (M)" << endl;
+                cout << " 🧮 MATH PUZZLE (M)" << endl;
                 cout << "=====================================" << endl;
                 // SHOW QUESTION 
                 mathSolved = solveMathPuzzle(player.difficulty);
@@ -110,7 +110,7 @@ bool runLevel(Player& player) {
                 pass = room.hasKey && mathSolved;
 
             if (pass) {
-                cout << "\n=====================================" << endl;
+                cout << "=====================================" << endl;
                 cout << " You successfully open the door! 🚪✅" << endl;
                 cout << " Moving to the next room... " << endl;
                 cout << "(Press Enter to continue...)" << endl;
@@ -128,7 +128,8 @@ bool runLevel(Player& player) {
                     cout << "\n❌ You must check the MATH PUZZLE at M first!" << endl;
                 }
                 if (player.currentLevel == FINAL_LEVEL) {
-                    cout << "\n❌ You must get the Key at K first, followed by the math puzzle!" << endl;
+                    cout << "\n❌ You must get the Key at K and also answer the math puzzle!" << endl;
+                    cout << "Did you miss anything?" << endl;
                 }
                 cout << "(Press Enter to continue...)" << endl;
                 cin.ignore();
@@ -144,8 +145,8 @@ bool runLevel(Player& player) {
 // Inputs: None
 // Outputs: None (due to void), but manages game lifecycle and cleans up memory at the end
 void startGame() {
-    cout << "==== ESCAPE THE ROOM ====" << endl;
-    cout << "1. New Game" << endl;
+    cout << "==== 🎮 ESCAPE THE ROOM 🎮 ====" << endl;
+    cout << "1. New Game ⭐" << endl;
     cout << "2. Load Game" << endl;
     int c;
     cin >> c;
@@ -162,7 +163,7 @@ void startGame() {
     if (c == 2 && loadGame(p)) {
         cout << "Loaded successfully!" << endl;
     } else {
-        cout << "Difficulty (0=Easy, 1=Medium, 2=Hard): ";
+        cout << "👤 Difficulty (0=Easy, 1=Medium, 2=Hard): ";
         int d;
         cin >> d;
         p.difficulty = d; // Set difficulty for the player
