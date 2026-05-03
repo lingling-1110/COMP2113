@@ -26,7 +26,7 @@ Adjustable Difficulty: Players can choose difficulty preferences at the beginnin
 
 ## Non-standard libraries🗂️
 Not used, standard libraries only.
-## How to run
+## How to Run
 ```bash
 make
 ```
