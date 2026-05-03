@@ -2,7 +2,13 @@
 #include <cstdlib>
 
 using namespace std;
+
 // Initialize player
+// What it does: Initializes the player's starting state and allocates dynamic memory for the inventory system
+// Inputs:
+// - Player& player: The specific player object to be modified and initialized
+// - int difficulty: The chosen game difficulty level
+// Outputs: None (due to void)
 void initializePlayer(Player& player, int difficulty) {
     player.x = MAP_WIDTH / 2;
     player.y = MAP_HEIGHT / 2;
