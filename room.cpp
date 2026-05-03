@@ -5,6 +5,12 @@
 
 using namespace std;
 
+// What it does: Sets up initial state of the room
+// Inputs: 
+// - Room& room: Reference to the Room structure to be modified
+// - int level: The current game level
+// - int difficulty: The chosen difficulty setting
+// Outputs: None (due to void), but modifies the 'room' object directly
 void initializeRoom(Room& room, int level, int difficulty) {
     room.map.resize(MAP_HEIGHT, string(MAP_WIDTH, ' '));
     room.hasKey = false;
@@ -77,10 +83,22 @@ void initializeRoom(Room& room, int level, int difficulty) {
     }
 }
 
+// What it does: Determines if the given coordinates hit the wall
+// Inputs:
+// - const Room& room: The current 'room' object
+// - int x: The x-coordinate to check
+// - int y: The y-coordinate to check
+// Outputs: Returns true if the coordinate is a wall ('#'), false otherwise
 bool isWall(const Room& room, int x, int y) {
     return room.map[y][x] == '#';
 }
 
+// What it does: Determines if the player has triggered a trap based on their (x,y) position
+// Inputs:
+// - const Room& room: The current room containing the trap vector
+// - int x: Player's x-coordinate
+// - int y: Player's y-coordinate
+// Outputs: Returns true if a trap exists at (x,y), false otherwise
 bool checkTrapCollision(const Room& room, int x, int y) {
     for (auto& trap : room.traps) {
         if (trap.first == x && trap.second == y) return true;
@@ -88,6 +106,11 @@ bool checkTrapCollision(const Room& room, int x, int y) {
     return false;
 }
 
+// What it does: Updates the game view to show the player's movement and any relevant level-specific hints
+// Inputs:
+// - const Room& room: The current room data
+// - const Player& player: The player's current state
+// Outputs: None (due to void), but outputs the map directly to the console
 void printMap(const Room& room, const Player& player) {
     system("clear");
     for (int y = 0; y < MAP_HEIGHT; y++) {
@@ -101,7 +124,14 @@ void printMap(const Room& room, const Player& player) {
         cout << "💫 Hint: " << getDirectionHint(room.keyX, room.keyY, player.x, player.y) << endl;
     }
 }
-//the hints function
+
+// What it does: Generate a directional hint (North, South, East, or West) based on the key's location relative to the player
+// Inputs:
+// - int keyX: x-coordinate of the key
+// - int keyY: y-coordinate of the key
+// - int playerX: Player's x-coordinate
+// - int playerY: Player's y-coordinate
+// Outputs: A message directing the player toward the key
 string getDirectionHint(int keyX, int keyY, int playerX, int playerY) {
     if (keyY < playerY) return "Look north to find the key! 👀";
     if (keyY > playerY) return "Look south to find the key! 👀";
