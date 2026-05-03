@@ -6,7 +6,7 @@ A text-based game built in C++. Players are asked to solve puzzles, avoid traps,
 ## Game Features
 - 4 Unique Room in each difficulty level: From the entrance to the final escape room, each room has its own theme and challenge.
 - Inventory System: Collect keys, clues, and puzzle pieces to unlock new areas.
-- Trap & Hazard System: Avoid random traps that can cost you HP or items.
+- Trap & Hazard System: Avoid random traps that can cost you HP.
 - Password & Riddle Puzzles: Solve math/logic riddles to unlock doors.
 
 Save & Load: Pause your game and resume later with full progress saved.
@@ -15,11 +15,11 @@ Adjustable Difficulty: Players can choose difficulty preferences at the beginnin
 
 | Requirement              | How we implement               |
 |---------------------------------|--------------------------------|
-| Random events                   | Random key/item spawns, random clue text, random trap placement      |
-| Data structures                 | Structs for Player, Room, InventoryItem, and puzzles; linked list/array for inventory     |
+| Random events                   | Random key&door, random trap placement      |
+| Data structures                 | Structs for Player, Room, InventoryItem, and puzzles  |
 | Dynamic memory                  | Dynamic array for inventory          |
 | File I/O                        | Save/load game                 |
-| Program codes in multiple files  |  Main, game, player, room, utils, save (separate .h / .cpp)      |
+| Program codes in multiple files |  Makefile, constants.h; Main, game, player, room, utils, save (separate .h / .cpp)      |
 | Difficulty levels               | Easy / Medium / Hard — different clues, trap damage, puzzle difficulty|
 
 ## Non-standard libraries🗂️
@@ -44,6 +44,7 @@ make
 Level 1 Rules:
 Find and pick up the Key on the map.
 Bring the key to the Door (D) to unlock and go to next room.
+You cannot open the door before take the key.
 
 Level 2 Rules:
 Walk to the M spot first to answer a math puzzle.
