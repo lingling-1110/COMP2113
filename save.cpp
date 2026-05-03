@@ -4,6 +4,10 @@
 
 using namespace std;
 
+// What it does: Saves the player's current status to an external file to preserve the game session
+// Inputs:
+// - const Player& player: The player object containing the data to be stored
+// Outputs: None (due to void), but notifies the user via console once the save is successful
 void saveGame(const Player& player) {
     ofstream file("savegame.txt");
     if (file.is_open()) {
@@ -20,6 +24,10 @@ void saveGame(const Player& player) {
     }
 }
 
+// What it does: Loads saved progress from an external file into the player structure to resume gameplay
+// Inputs:
+// - Player& player: A reference to the 'Player' instance that will be updated with the retrieved file data
+// Outputs: Returns true if the save file was found and loaded successfully, returns false if the file could not be opened
 bool loadGame(Player& player) {
     ifstream file("savegame.txt");
     if (file.is_open()) {
