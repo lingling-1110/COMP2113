@@ -24,7 +24,7 @@ bool runLevel(Player& player) {
         switch(player.currentLevel) {
             case LEVEL1: levelDesc = "Find the Key! 🔑 (Get your key to unlock the room!)"; break;
             case LEVEL2: levelDesc = "Math time! 🧮 "; break;
-            case LEVEL3: levelDesc = "Trap Room! (Please aviod stepping on any BOMP!"; break;
+            case LEVEL3: levelDesc = "Trap Room! (Please aviod stepping on any BOMB💣!"; break;
             case FINAL_LEVEL: levelDesc = "Final Escape! (Try to discover by yourself!)"; break;
             default: levelDesc = "Unknown";
         }
@@ -54,7 +54,7 @@ bool runLevel(Player& player) {
         // level 1 - key
         if (player.x == room.keyX && player.y == room.keyY && !room.hasKey) {
             room.hasKey = true;
-            cout << "\nYou picked up the hidden 🔑! Please take your key to open the door" << endl;
+            cout << "\nYou picked up the hidden 🔑! Please take your key to open the door^_^" << endl;
             cout << "(Press Enter to continue...)" << endl;
             cin.ignore();
             cin.get();
@@ -171,12 +171,12 @@ void startGame() {
     }
 
     if (p.hp <= 0){
-        cout << "YOU DIED. GAME OVER." << endl;
+        cout << "YOU DIED☠️. GAME OVER." << endl;
         cin.ignore();
         cin.get();
     }
     if (p.currentLevel > FINAL_LEVEL){
-        cout << "YOU ESCAPED! WIN!" << endl;
+        cout << "YOU ESCAPED! WIN!🎁🎈🎉" << endl;
         cin.ignore();
         cin.get();
     }
