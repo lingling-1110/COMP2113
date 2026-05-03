@@ -8,7 +8,7 @@ using namespace std;
 // Inputs:
 // - Player& player: The specific player object to be modified and initialized
 // - int difficulty: The chosen game difficulty level
-// Outputs: None (due to void)
+// Outputs: None (due to void), but initializes the members of the player object directly
 void initializePlayer(Player& player, int difficulty) {
     player.x = MAP_WIDTH / 2;
     player.y = MAP_HEIGHT / 2;
@@ -23,6 +23,10 @@ void initializePlayer(Player& player, int difficulty) {
     player.difficulty = difficulty;
 }
 
+// What it does: Updates the player's grid coordinates based on directional input
+// Inputs:
+// - Player& player: 
+// - char direction: 
 void movePlayer(Player& player, char direction) {
     switch(direction) {
         case 'w': player.y--; break;
