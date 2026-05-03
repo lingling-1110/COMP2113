@@ -7,8 +7,10 @@
 #include <iostream>
 using namespace std;
 
-
-
+// What it does: Manages the core gameplay loop for a single level
+// Inputs:
+// - Player& player: A reference to the current player object
+// Outputs: Returns true if the player successfully finishes the level, returns false if the player dies or chooses to quit
 bool runLevel(Player& player) {
     Room room;
     initializeRoom(room, player.currentLevel, player.difficulty);
@@ -138,6 +140,9 @@ bool runLevel(Player& player) {
 }
 
 // first page
+// What it does: Displays the main menu, initializes the Player object (new game or load), and manages the transition between game levels until victory or death
+// Inputs: None
+// Outputs: None (due to void), but manages game lifecycle and cleans up memory at the end
 void startGame() {
     cout << "==== ESCAPE THE ROOM ====" << endl;
     cout << "1. New Game" << endl;
