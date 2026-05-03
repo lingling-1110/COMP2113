@@ -74,7 +74,7 @@ Need both collect Key + solve Math puzzle to escape.
 | room.h         | Chiu Wing Tung | Defines the `Room` structure, map setup, trap handling, and helper functions for room logic. |
 | room.cpp       | Chiu Wing Tung | Implements room initialization, dynamic trap placement, map printing, and key position hints. |
 | save.h         | Chiu Wing Tung | Declares the save/load system interface for storing and restoring player progress. |
-| save.cpp       | Chiu Wing Tung | Implements file handling for saving and loading player data to/from a file. |
+| save.cpp       | Chiu Wing Tung | Implements file handling for saving and loading player data to or from a file. |
 | player.h       | Wang You       | Defines the `Player` structure, including stats (HP, position, inventory) and related constants. |
 | player.cpp     | Wang You       | Implements player movement, inventory management, and cleanup for dynamically allocated inventory arrays. |
 | utils.h        | Wang You       | Declares utility functions such as trap damage handling and math puzzle generation. |
