@@ -8,7 +8,9 @@ A text-based game built in C++. Players are asked to solve puzzles, avoid traps,
 - Inventory System: Collect keys, clues, and puzzle pieces to unlock new areas.
 - Trap & Hazard System: Avoid random traps that can cost you HP or items.
 Password & Riddle Puzzles: Solve math/logic riddles to unlock doors.
+
 Save & Load: Pause your game and resume later with full progress saved.
+
 Adjustable Difficulty: Players can choose difficulty preferences at the beginning of game.
 
 | Requirement              | How we implement               |
@@ -40,25 +42,18 @@ make
 
 ## Description for each level
 Level 1 Rules:
-
 Find and pick up the Key on the map.
-
 Bring the key to the Door (D) to unlock and go to next room.
 
 Level 2 Rules:
-
 Walk to the M spot first to answer a math puzzle.
-
 After solving correctly, go to Door (D) to proceed.
-
 You cannot open the door before solving the puzzle at M.
 
 Level 3 Rules:
-
 No key or puzzle required — just walk to the Door to advance. However, you need to advoid any bump.
 
 Final Level Rules:
-
 Need both collect Key + solve Math puzzle to escape.
 
 
