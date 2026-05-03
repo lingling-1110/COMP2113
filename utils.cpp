@@ -23,8 +23,8 @@ void handleTrapDamage(int& hp, int difficulty) {
 
 // What it does: Generates a random math problem based on the game difficulty and verifies the player's answer
 // Inputs:
-// - int difficulty: Determines the complexity of the math operaations
-// Outputs: Returns true if the player;s answer is correct, returns false otherwise
+// - int difficulty: Determines the complexity of the math operations
+// Outputs: Returns true if the player's answer is correct, returns false otherwise
 bool solveMathPuzzle(int difficulty) {
     // Seed random once
     if (!randSeeded) {
